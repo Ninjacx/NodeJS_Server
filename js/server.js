@@ -1,3 +1,4 @@
+//服务
 const http = require('http');
 const fs = require('fs');//文件
 const url = require('url');//解析地址
@@ -15,4 +16,4 @@ http.createServer(function(req,res){
         }
         res.end();
     });
-}).listen('8080');
+}).listen('8080'); 
