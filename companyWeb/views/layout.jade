@@ -3,5 +3,11 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    style
+      include ../public/css/index.css
+    script
+      include ../public/js/common.js
+      include ../public/js/index.js
   body
     block content
+    div.layout layout
