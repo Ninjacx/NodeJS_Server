@@ -7,30 +7,31 @@ var mysql = require('mysql');
 var pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '123456',
-    database: 'test',
+    password: '',
+    database: 'nodejs',
     port: 3306
 });
 
-var selectSQL = 'select * from test_city limit 10';
-
-
-
+var selectSQL = 'select * from n_user limit 10';
 
 // function sql(sql){
-  pool.getConnection(function (err, conn) {
+function query(sql,callback){
+  pool.getConnection(function (err, connection){
       if (err) console.log("POOL ==> " + err);
-      conn.query(selectSQL,function(err,res){
+      connection.query(sql,function(err,res){
           if (err) console.log(err);
-          // for (var i in res) {
-          //     console.log(res[i]);
-          // }
-          console.log(res);
-          conn.release();
+          callback(err,res);
+          connection.release();
           // return res;
       });
   });
-// }
+}
+//module.
+exports.query=query;
+
+// exports.query(selectSQL,function(err,res){
+//   console.log(res);
+// });
 
 
 // console.log(sql(selectSQL));
