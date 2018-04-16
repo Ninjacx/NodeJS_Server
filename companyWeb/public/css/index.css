@@ -1,7 +1,13 @@
-p{
-  color: red;
-}
 body{
   padding: 0;
   margin: 0;
+}
+ .nav-top{
+   font-size: 20px;
+   text-align: center;
+   font-weight: bold;
+   /* background: #0285D7; */
+}
+.icon{
+  width:80px;
 }

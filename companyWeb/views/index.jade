@@ -2,17 +2,30 @@ extends layout
 
 block content
   head
-  meta(charset='utf-8' name="viewport" content="width=device-width, initial-scale=1.0")
+  meta(charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0")
+  meta(http-equiv="X-UA-Compatible" content="IE=edge")
   body
-    h1 Jade - node template engine
-    #container
-    -var n = 100;
+    div#container
+    div.col-sm-12.nav-top
+      div.col-sm-3 CRM后台管理系统定制
+      div.col-sm-3 流程介绍
+      div.col-sm-3 案例展示
+      div.col-sm-3 团队介绍
+
+  div.col-sm-12
+
+     img(src='../images/sky-web.png').icon
+     div 快速高效构建IT互联网
+
+
+   div(style='display:none')
+    -var n = 10000;
        p.b #{n}
        div #{b}
-      - if (b)
+      - if (!b)
          p(style='color:red') You are amazing
       - else
-         Get on it!
+         Get on iat!
          Get on it!
          Get on it!
          Get on it!
