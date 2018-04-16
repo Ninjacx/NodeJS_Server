@@ -20,6 +20,7 @@ var selectSQL = 'select * from n_user limit 10';
 //        }
 //        res.render('index', { title: "" ,"b":false,user:data});//企业网站搭建-云工作室
 //    });
+var data = [];
 res.render('index', { title: "" ,"b":false,user:data});//企业网站搭建-云工作室
 });
 router.get('/banners', function(req, res, next) {
