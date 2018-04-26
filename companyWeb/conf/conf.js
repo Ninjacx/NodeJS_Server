@@ -7,15 +7,14 @@ var mysql = require('mysql');
 var pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '',
-    database: 'nodejs',
+    password: '123456',
+    database: 'test',
     port: 3306
 });
 
-var selectSQL = 'select * from n_user limit 10';
 
 // function sql(sql){
-function query(sql,callback){
+function query(sql,callback){ 
   pool.getConnection(function (err, connection){
       if (err) console.log("POOL ==> " + err);
       connection.query(sql,function(err,res){
@@ -28,10 +27,3 @@ function query(sql,callback){
 }
 //module.
 exports.query=query;
-
-// exports.query(selectSQL,function(err,res){
-//   console.log(res);
-// });
-
-
-// console.log(sql(selectSQL));
