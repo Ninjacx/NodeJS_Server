@@ -2,6 +2,9 @@ body{
   padding: 0;
   margin: 0;
 }
+#nav{
+  /* margin:  */
+}
  .nav-top{
    font-size: 20px;
    text-align: center;
@@ -19,4 +22,10 @@ body{
     right: -30px;
     bottom: 0;
     z-index: 1;
+}
+#nav div{
+  float: right;
+}
+.marginLeft{
+  margin-left: 10px;
 }
