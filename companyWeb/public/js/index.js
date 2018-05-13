@@ -9,11 +9,12 @@ window.onload = function(){
     p.click(function(res){
       // alert(123);
       // document.getElementById('pos').style.right
-
+      $('#myModal').modal();
       p.animate({"transform":"r100 t200"},2000,'bounce',function(r){
           // console.log(r);
       });
       console.log(res);
+      // p.attr('display','none');
     });
     //     var circle = paper.circle(10, 50, 10)
     //     circle.attr({"fill":"yellow"})

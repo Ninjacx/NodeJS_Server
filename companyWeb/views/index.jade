@@ -2,13 +2,19 @@ extends layout
 
 block content
   head
+  title 123
   meta(charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0")
   meta(http-equiv="X-UA-Compatible" content="IE=edge")
   body
+
+
     nav#nav
      img(src='../images/sky-web.png' width="80px")
      div 注册
        span.marginLeft 登录
+
+
+
 
 
 
@@ -28,8 +34,24 @@ block content
         img(src='../images/pos.jpg')
       div.col-sm-3
         img(src='../images/pos.jpg')
-  div.col-sm-12  30px案例展示
+  div.col-sm-12 案例展示
 
+  //用户填写信息
+  div.modal.fade#myModal(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+    div.modal-dialog
+        div.modal-content
+            div.modal-header
+                button.close(type="button" data-dismiss="modal" aria-hidden="true")&times
+                h4.modal-title#myModalLabel 提交你的信息
+            div.modal-body
+             div 姓名：
+              input(type="text")
+              div 手机：
+                input(type="text")
+              div.modal-footer
+                  button.btn.btn-default(type="button"  data-dismiss="modal") 关闭
+                    button.btn.btn-primary(type="button") 提交
+ 
    div
     -var n = 10000;
        p.b #{n}
