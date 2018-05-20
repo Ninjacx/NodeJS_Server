@@ -9,7 +9,7 @@ block content
 
 
     nav#nav
-     img(src='../images/sky-web.png' width="80px")
+    // img(src='../images/sky-web.png' width="80px")
      div 注册
        span.marginLeft 登录
 
@@ -51,8 +51,9 @@ block content
               div.modal-footer
                   button.btn.btn-default(type="button"  data-dismiss="modal") 关闭
                     button.btn.btn-primary(type="button") 提交
- 
-   div
+                    
+
+   div(style="display:none")
     -var n = 10000;
        p.b #{n}
        div #{b}
