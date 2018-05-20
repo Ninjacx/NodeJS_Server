@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="http://cdn.bootcss.com/vue/1.0.14/vue.js" charset="utf-8"></script>
+  </head>
+  <body>
+      <div id="app" class="">
+        <div class="">
+          {{level}}
+          {{first}}
+          {{second}}
+        </div>
+          <select v-model="first">
+            <option>上海</option>
+              <option>南京</option>
+          </select>
+      </div>
+
+      <script type="text/javascript">
+         var vue = new Vue({
+           el:"#app",
+          data:{
+            message:1,
+            first:'jady1',
+            second:'xbbbb'
+          },computed:{
+            level:function(){
+              console.log(this.message);
+              if(this.message>100){
+                return '>100';
+              }else{
+                return '<100';
+              }
+            }
+          }
+         })
+      </script>
+  </body>
+</html>
