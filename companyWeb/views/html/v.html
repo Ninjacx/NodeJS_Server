@@ -3,7 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <script src="http://cdn.bootcss.com/vue/1.0.14/vue.js" charset="utf-8"></script>
+  <script src="http://cdn.bootcss.com/vue/1.0.14/vue.js" charset="utf-8"></script>
+  <style media="screen">
+    .sty{
+      color:red;
+    }
+  </style>
   </head>
   <body>
       <div id="app" class="">
@@ -16,15 +21,28 @@
             <option>上海</option>
               <option>南京</option>
           </select>
+
+
+          <div v-for="item  in task">
+
+              <div @click="toggle(item)" :class="{'sty':item.v}">
+                {{item.list}}
+              </div>
+          </div>
       </div>
 
       <script type="text/javascript">
+
+
+
+
          var vue = new Vue({
            el:"#app",
           data:{
             message:1,
             first:'jady1',
-            second:'xbbbb'
+            second:'xbbbb',
+            task:[{"list":111,"v":false},{"list":222,"v":true},{"list":333,"v":true}]
           },computed:{
             level:function(){
               console.log(this.message);
@@ -34,8 +52,13 @@
                 return '<100';
               }
             }
+          },methods:{
+             toggle:function(item){
+              item.v = !item.v
+             }
           }
          })
       </script>
+
   </body>
 </html>

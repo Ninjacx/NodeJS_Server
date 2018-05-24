@@ -7,8 +7,16 @@ body{
   margin: 0 !important;
 }
 #nav{
-  /* margin:  */
+  margin: 0;
+  padding: 0;
 }
+.needs li{
+  float: left;
+  width: 15%;
+  text-align: right;
+  list-style: none;
+}
+
  .nav-top{
    font-size: 20px;
    text-align: center;
