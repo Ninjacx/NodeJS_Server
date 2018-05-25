@@ -1,27 +1,26 @@
 extends layout
-
 block content
-  head
-  title 123
-  meta(charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0")
-  meta(http-equiv="X-UA-Compatible" content="IE=edge")
-  body
+  include ./common/header.jade
 
-
-    nav#nav
-     div 注册
-      span.marginLeft 登录
-    // img(src='../images/sky-web.png' width="80px")
 
 
   div#container
-    div#pos
-    div.col-sm-12.nav-top
+    div#panda
+
+
+    div.banner
+     img(src='../images/index2.jpg' width='100%')
+     div.banner-text
+       div 移动互联网
+       div  追求卓越
+       div  未来触手可及
+
+   div.col-sm-12.nav-top(style="display:none")
       div.col-sm-3#raphael CRM后台管理系统定制
       div.col-sm-3 企业网站
       div.col-sm-3 流程介绍
       div.col-sm-3 团队介绍
-  div.col-sm-12.nav-top
+  div.col-sm-12.nav-top(style="display:none")
       div.col-sm-3
         img(src='../images/pos.jpg')
       div.col-sm-3
@@ -31,52 +30,47 @@ block content
       div.col-sm-3
         img(src='../images/pos.jpg')
 
-  div
-    img(src='../images/index/html.png' width="150px")
+
 
   ul.needs
     li
-      div 需求发布
+      div
+       span.label.label-default 1
+       span 需求发布
       div 询价与专业指导
     li
-        div 洽谈选标
-        div 音视频面试
+      div
+       span.label.label-success 2
+       span 洽谈选标
+      div 音视频面试
     li
-        div 合同签订
-        div 企业级合同支持
+      div
+        span.label.label-info 3
+        span 合同签订
+      div 企业级合同支持
     li
-        div 资金托管
+      div
+        span.label.label-warning 4
+        span 资金托管
         div 大额分期托管
     li
-        div 项目执行
+     div
+        span.label.label-primary 5
+        span 项目执行
         div 开发协作云
     li
-        div 验收支付与评价
+      div
+        span.label.label-danger 6
+        span 验收支付与评价
         div 提供测试服务
 
 
 
+  div ----
 
 
 
-
-
-
-  //用户填写信息 弹框最下
-  div.modal.fade#myModal(tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
-    div.modal-dialog
-        div.modal-content
-            div.modal-header
-                button.close(type="button" data-dismiss="modal" aria-hidden="true")&times
-                h4.modal-title#myModalLabel 提交你的信息
-            div.modal-body
-             div 姓名：
-              input(type="text")
-              div 手机：
-                input(type="text")
-              div.modal-footer
-                  button.btn.btn-default(type="button"  data-dismiss="modal") 关闭
-                    button.btn.btn-primary(type="button") 提交
+  include ./common/footer.jade
 
 
    div(style="display:none")

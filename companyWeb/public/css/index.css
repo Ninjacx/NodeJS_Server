@@ -6,9 +6,14 @@ body{
   padding: 0 !important;
   margin: 0 !important;
 }
-#nav{
+#panda{
   margin: 0;
   padding: 0;
+}
+.needs{
+  margin: 20px 0;
+display:inline-block;
+    width: 100%;
 }
 .needs li{
   float: left;
@@ -16,7 +21,6 @@ body{
   text-align: right;
   list-style: none;
 }
-
  .nav-top{
    font-size: 20px;
    text-align: center;
@@ -26,10 +30,19 @@ body{
 .icon{
   width:80px;
 }
-.nav-top :nth-child(1){
-  /* background: red; */
+.banner{
+  position: relative;
 }
-  #pos{
+.banner :nth-child(n){
+  color: white;
+}
+.banner .banner-text{
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  font-size: 26px;
+}
+  #panda{
     position: fixed;
     right: -30px;
     bottom: 0;
