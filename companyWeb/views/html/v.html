@@ -44,7 +44,35 @@
       </div>
 
       <script type="text/javascript">
+    function father(){
+      console.log(3);
+      var b = function(){
+        // console.log('this is son1!!!');
+      }
+        this.son = function(){
+         console.log('this is son');
+       }
+       b();
+    }
+    // var a = '';
+   var a = function(){
+    console.log('this is mother');
+  }
 
+
+window.onload = function(){
+ var json = {a:15,b:6,c:3};
+ var arr = [12,3,6,5,8];
+ for(i in json){
+   console.log('第'+i+'值='+json[i]);
+ }
+  // a();
+  // father();
+  // var ff = new father();
+  // ff.son();
+  // ff.b;
+  // a.mother();
+}
 
 
 
@@ -75,14 +103,19 @@
             },
             getcity:function(item){
                var pid = this.itea;
-              var arr = [];
-               for (var i = 0; i < this.allcity.length; i++) {
-                  if(pid==this.allcity[i].pid){
-                    arr.push({"pid":this.allcity[i].pid,"cname":this.allcity[i].cname});
-                  }
-               }
+              // var arr = [];4
+              var r = this.allcity.filter(function (item) {
+                  // return  this.allcity[i].pid;
+               return item.pid==pid;
+              });
+
+               // for (var i = 0; i < this.allcity.length; i++) {
+               //    if(pid==this.allcity[i].pid){
+               //      arr.push({"pid":this.allcity[i].pid,"cname":this.allcity[i].cname});
+               //    }
+               // }
             // this.city=[];
-            this.city = arr;
+            this.city = r;
             }
           }
          })

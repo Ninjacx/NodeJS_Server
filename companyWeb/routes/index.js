@@ -26,7 +26,9 @@ var selectSQL = 'select * from n_user limit 10';
 //    });
 var data='';//mysql未安装
     res.render('index', { title: "" ,"b":false,user:data});//企业网站搭建-云工作室
-
+});
+router.get('/doc', function(req, res, next) {
+  res.render('document/doc');
 });
 router.get('/banners', function(req, res, next) {
   res.render('index2', { title: '咕噜噜/banners' });

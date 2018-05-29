@@ -1,0 +1,9 @@
+extends ../layout
+block content
+  include ../common/header.jade
+
+  div#container
+    h2 资料：
+    div if == false (null=>空对象 ,undefined=>未定义变量 , NaN =>非数字,0=>数字或字符串 ,空字符串)
+    div 循环:
+      div for(i in json) 方式循环json i => json下标
