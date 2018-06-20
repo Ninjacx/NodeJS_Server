@@ -36,5 +36,6 @@ router.get('/banners', function(req, res, next) {
 
 router.get('/a', function(req, res, next) {
   res.send('respond with a resource');
+  res.jsonp({"bbb":123});
 });
 module.exports = router;
