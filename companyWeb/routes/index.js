@@ -38,4 +38,9 @@ router.get('/a', function(req, res, next) {
   res.send('respond with a resource');
   res.jsonp({"bbb":123});
 });
+router.get('/b', function(req, res, next) {
+  console.log();
+  res.sendFile(`${process.cwd()}/public/html/login.html`, {title:'index'});
+  // res.jsonp({"bbb":123});
+});
 module.exports = router;
