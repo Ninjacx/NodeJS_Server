@@ -3,7 +3,6 @@
    float: left;
    width: 50%;
    text-align: left;
-   font-size: 11px;
    list-style: none;
    padding: 10px;
  }
@@ -32,7 +31,10 @@
     list-style: none;
   }
 }
-
+/*中间字体*/
+.needs li{
+  font-size: 0.5rem;
+}
 body{
   padding: 0;
   margin: 0;

@@ -1,21 +1,21 @@
 window.onresize=size();
 window.onload = function(){
   size();
-    /*var Paper = Raphael('pos', 1000, 130);
+  var r= document.documentElement.clientWidth;
+    var Paper = Raphael('panda', r, 130);
     var p = Paper.image('../images/pos.jpg',170, 30, 80, 80);
 
     // p.attr('height',180);
-    p.animate({"transform":"t800,100r65t-100,0 r205t"},2000,'bounce',function(r){
+    p.animate({"transform":"t"+(r-200)+",100r65t-100,0 r205t"},2300,'bounce',function(r){
         // console.log(r);
     });
     p.click(function(res){
       // alert(123);
       // document.getElementById('pos').style.right
-      $('#myModal').modal();
-      p.animate({"transform":"r100 t200"},2000,'bounce',function(r){
-          /1111/ console.log(r);
-      });
-      console.log(res);
+      // $('#myModal').modal();
+      // p.animate({"transform":"r100 t200"},2000,'bounce',function(r){console.log(r);
+      // });
+      // console.log(res);
       // p.attr('display','none');
     });
     //     var circle = paper.circle(10, 50, 10)
@@ -27,7 +27,7 @@ window.onload = function(){
       // rect.attr("stroke", "#fff");
 
       // rect.translate(50,50);
-*/
+
 }
 function size(){
   var init= 750;
