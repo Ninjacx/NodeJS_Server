@@ -1,5 +1,9 @@
 window.onload = function(){
-    var Paper = Raphael('pos', 1000, 130);
+  var init= 750;
+var rem = document.documentElement.clientWidth/750*16;
+
+  document.documentElement.style.fontSize = rem+'px';
+    /*var Paper = Raphael('pos', 1000, 130);
     var p = Paper.image('../images/pos.jpg',170, 30, 80, 80);
 
     // p.attr('height',180);
@@ -25,5 +29,5 @@ window.onload = function(){
       // rect.attr("stroke", "#fff");
 
       // rect.translate(50,50);
-
+*/
 }
