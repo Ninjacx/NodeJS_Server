@@ -1,8 +1,6 @@
+window.onresize=size();
 window.onload = function(){
-  var init= 750;
-var rem = document.documentElement.clientWidth/750*16;
-
-  document.documentElement.style.fontSize = rem+'px';
+  size();
     /*var Paper = Raphael('pos', 1000, 130);
     var p = Paper.image('../images/pos.jpg',170, 30, 80, 80);
 
@@ -15,7 +13,7 @@ var rem = document.documentElement.clientWidth/750*16;
       // document.getElementById('pos').style.right
       $('#myModal').modal();
       p.animate({"transform":"r100 t200"},2000,'bounce',function(r){
-          // console.log(r);
+          /1111/ console.log(r);
       });
       console.log(res);
       // p.attr('display','none');
@@ -30,4 +28,9 @@ var rem = document.documentElement.clientWidth/750*16;
 
       // rect.translate(50,50);
 */
+}
+function size(){
+  var init= 750;
+  var rem = document.documentElement.clientWidth/750*16;
+  document.documentElement.style.fontSize = rem+'px';
 }
