@@ -1,10 +1,9 @@
 extends layout
 block content
   include ./common/header.jade
-
+  script(src="../js/echarts/echarts.common.min.js")
   div#container
     div#panda
-
 
     div.banner
      img(src='../images/index2.jpg' width='100%')
@@ -68,19 +67,17 @@ block content
     li
       div
 
-        span 验收支付与评价
+        span 验收支付
         div
         span.label.label-danger 6
         span 提供测试服务
 
-
-
-  div ----
+  div.col-xs-12.col-sm-6
+    div#main
 
 
 
   include ./common/footer.jade
-
 
    div(style="display:none")
     -var n = 10000;
