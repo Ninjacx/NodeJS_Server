@@ -1,6 +1,7 @@
 var express = require('express');
 var conf = require('../conf/conf');
 var bodyParser = require('body-parser');//post请求用
+var staticPath = require('express-static');//post请求用
 var router = express.Router();
 var app = express();
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -43,4 +44,7 @@ router.get('/b', function(req, res, next) {
   res.sendFile(`${process.cwd()}/public/html/login.html`, {title:'index'});
   // res.jsonp({"bbb":123});
 });
+router.use(staticPath('./public'));
+
+
 module.exports = router;
