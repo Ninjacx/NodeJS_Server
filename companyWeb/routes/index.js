@@ -50,7 +50,7 @@ router.get('/b', function(req, res, next) {
   res.sendFile(`${process.cwd()}/public/html/login.html`, {title:'index'});
   // res.jsonp({"bbb":123});
 });
-router.use(staticPath('./public'));
+//router.use(staticPath('./public'));
 
 
 module.exports = router;
