@@ -28,6 +28,12 @@ var selectSQL = 'select * from n_user limit 10';
 var data='';//mysql未安装
     res.render('index', { title: "" ,"b":false,user:data});//企业网站搭建-云工作室
 });
+
+//登录页面
+router.get('/login', function(req, res, next){
+var data='';
+    res.render('logo/login', { title: "" ,"b":false,user:data});//企业网站搭建-云工作室
+});
 router.get('/doc', function(req, res, next) {
   res.render('document/doc');
 });
