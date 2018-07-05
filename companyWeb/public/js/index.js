@@ -86,6 +86,7 @@ userChart.setOption(option);
 
 
 }
+//初始屏幕字体大小
 function size(){
   var init= 750;
   var rem = document.documentElement.clientWidth/750*16;
