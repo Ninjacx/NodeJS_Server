@@ -1,5 +1,11 @@
 window.onresize=size();
 window.onload = function(){
+  //图片加载
+  setImg('.load-img')
+  var gallery = mui('.mui-slider');
+gallery.slider({
+  interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
+});
   size();
   var r= document.documentElement.clientWidth;
     var Paper = Raphael('panda', r, 130);
