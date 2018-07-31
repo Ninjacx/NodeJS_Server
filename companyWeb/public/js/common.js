@@ -40,6 +40,20 @@ function toast(content) {
         toast.remove();
     }, 2600);
 }
+//加载等待框
+function setLoading(){
+      var load = $('<div class="loading_outer">'
+
+        +'<div class="loader--audioWave">'
+        +'</div>'
+        +'<div style="text-align:center;font-size: 13px;font-weight: 800;color: cornflowerblue;">加载中…</div>'
+    +'</div>');
+    $('body').append(load);
+}
+//取消加载框
+function removeLoading(){
+    $('.loading_outer').remove();
+}
 
 //回退
 function backWeb() {

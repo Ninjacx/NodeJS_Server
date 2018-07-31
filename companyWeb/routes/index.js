@@ -11,28 +11,36 @@ var app = express();
 // });
 /* GET home page. */
 router.get('/', function(req, res, next){
-
-var selectSQL = 'select * from n_user limit 10';
-// conf.query(selectSQL,function(err,result){
-//     var string=JSON.stringify(result);
-//           //将json字符串转化成json数组
-//           var json=JSON.parse(string);
-//           // console.log(json);
-//        if(err){
-//           data= '';
-//        }else {
-//            data= json;
-//        }
-//
-//    });
-var data='';//mysql未安装
-    res.render('index', { title: "" ,"b":false,user:data});//企业网站搭建-云工作室
+  var selectSQL = 'select * from t_goods limit 4';
+    var result = '';
+  conf.query(selectSQL,function(err,result){
+          var string=JSON.stringify(result);
+          result=JSON.parse(string);
+         // if(err){
+         //    data= '';
+         // }else {
+         //     data= json;
+         // }
+        // ,"b":false,user:data
+        console.log(result);
+      res.render('index', { title: "a",res:result });
+     });
+  // var data='';//mysql未安装
+});
+//精品推荐换一批随机4条
+router.get('/changeRecommend',(req, res, next)=>{
+    var selectSQL = 'select * from t_goods order by rand() LIMIT 4';
+    conf.query(selectSQL,function(err,result){
+            var result=JSON.stringify(result);
+            console.log(result);
+        res.json({res:result});
+      });
 });
 
 //登录页面
 router.get('/login', function(req, res, next){
 var data='';
-    res.render('logo/login', { title: "" ,"b":false,user:data});//企业网站搭建-云工作室
+    res.render('logo/login', { title: "" ,"b":false,user:data});
 });
 router.get('/doc', function(req, res, next) {
   res.render('document/doc');
