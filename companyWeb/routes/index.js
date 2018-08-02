@@ -59,9 +59,22 @@ router.get('/banners', function(req, res, next) {
 });
 
 router.get('/a', function(req, res, next) {
+  console.log("aaa");
+
   res.send('respond with a resource');
   res.jsonp({"bbb":123});
 });
+
+//富文本编辑器
+router.get('/test', function(req, res, next) {
+  res.render('document/GoodsDetailedit');
+});
+
+//产品详情的图片上传
+router.post('/upload', function(req, res, next) {
+  //console.log(888);
+});
+
 router.get('/b', function(req, res, next) {
   console.log();
   res.sendFile(`${process.cwd()}/public/html/login.html`, {title:'index'});
