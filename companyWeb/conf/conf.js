@@ -14,7 +14,7 @@ var pool = mysql.createPool({
 
 
 // function sql(sql){
-function query(sql,callback){ 
+function query(sql,callback){
   pool.getConnection(function (err, connection){
       if (err) console.log("POOL ==> " + err);
       connection.query(sql,function(err,res){

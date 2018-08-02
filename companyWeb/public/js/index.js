@@ -37,6 +37,11 @@ function size(){
 
 $(document).ready(function(){
   $('.changeRecommend').click(()=>{
+
+     $('.changeRecommend').addClass('rotate');
+     setTimeout(function(){
+       $('.changeRecommend').removeClass('rotate');
+     },800);
       //换一批推荐
       setLoading();
       $.get('changeRecommend',function(result){

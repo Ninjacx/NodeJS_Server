@@ -48,11 +48,44 @@ body{
   padding: 0;
   margin: 0;
 }
+.isShowMsg{
+  display: none;
+}
+.Tcenter{
+  text-align: center;
+}
+.fwBold{
+  font-weight: bold;
+}
+.marginLeft3{
+  margin-left:.3rem;
+}
+.marginLeft{
+  margin-left:.5rem;
+}
+.marginRight{
+  margin-right:.5rem;
+}
 .margin-outline{
-  margin:.5rem;
+  margin:.3rem;
 }
 .padding-outline{
-  padding:.5rem;
+  padding:.3rem;
+}
+.fs12{
+  font-size: 12px;
+}
+.fs13{
+  font-size: 13px;
+}
+.fs14{
+  font-size: 14px;
+}
+.fs15{
+  font-size: 15px;
+}
+.fs16{
+  font-size: 16px;
 }
 
 .bgwhite{
@@ -64,23 +97,30 @@ body{
 .paddingTB{
     padding: 10px 0;
 }
+
+#temp div .padding-outline{
+  padding-left:0;
+}
   #panda{
     position: fixed;
     right: -30px;
     bottom: 0;
     z-index: 1;
 }
-
-@keyframes teams {
+.rotate{
+  animation: rotatex .8s;
+}
+@keyframes rotatex {
   25%{
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+  50%{
     -webkit-transform: rotateY(90deg);
     transform: rotateY(90deg);
   }
-  50%{
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-  }
   100%{
-    -webkit-transform: rotateY(360deg);
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
   }
 }

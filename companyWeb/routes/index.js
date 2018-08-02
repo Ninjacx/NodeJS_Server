@@ -23,7 +23,7 @@ router.get('/', function(req, res, next){
          // }
         // ,"b":false,user:data
         console.log(result);
-      res.render('index', { title: "a",res:result });
+      res.render('index', { title: "冰旗库",res:result });
      });
   // var data='';//mysql未安装
 });
@@ -37,6 +37,15 @@ router.get('/changeRecommend',(req, res, next)=>{
       });
 });
 
+//首页下拉产品每次取5条
+router.get('/getGoodsList',(req, res, next)=>{
+    console.log(req.query.goods_id);
+    var selectSQL = 'SELECT * from t_goods  LIMIT 5 OFFSET '+req.query.goods_id;
+    conf.query(selectSQL,function(err,result){
+            var result=JSON.stringify(result);
+        res.json({res:result});
+      });
+});
 //登录页面
 router.get('/login', function(req, res, next){
 var data='';
