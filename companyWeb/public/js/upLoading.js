@@ -1,48 +1,47 @@
-//滚动条在Y轴上的滚动距离
+//滚动条在Y轴上的滚动距离 558
 
-function getScrollTop(){
-　　var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
-　　if(document.body){
-　　　　bodyScrollTop = document.body.scrollTop;
-　　}
-　　if(document.documentElement){
-　　　　documentScrollTop = document.documentElement.scrollTop;
-　　}
-　　scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
-　　return scrollTop;
+function getScrollTop () {
+    // 考虑到浏览器版本兼容性问题，解析方式可能会不一样
+  return document.documentElement.scrollTop || document.body.scrollTop
 }
 
-//文档的总高度
+//文档的总高度 1172
 
-function getScrollHeight(){
-　　var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
-　　if(document.body){
-　　　　bodyScrollHeight = document.body.scrollHeight;
-　　}
-　　if(document.documentElement){
-　　　　documentScrollHeight = document.documentElement.scrollHeight;
-　　}
-　　scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
-　　return scrollHeight;
+function getScrollHeight() {
+  let bodyScrollHeight = 0
+  let documentScrollHeight = 0
+  if (document.body) {
+    bodyScrollHeight = document.body.scrollHeight
+  }
+  if (document.documentElement) {
+    documentScrollHeight = document.documentElement.scrollHeight
+  }
+  // 当页面内容超出浏览器可视窗口大小时，Html的高度包含body高度+margin+padding+border所以html高度可能会大于body高度
+  return (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight
 }
 
-//浏览器视口的高度
+//浏览器视口的高度 500
 
-function getWindowHeight(){
-　　var windowHeight = 0;
-　　if(document.compatMode == "CSS1Compat"){
-　　　　windowHeight = document.documentElement.clientHeight;
-　　}else{
-　　　　windowHeight = document.body.clientHeight;
-　　}
-　　return windowHeight;
+function getWinHeight () {
+  // 浏览器可见内容高度 || 浏览器所有内容高度(考虑到浏览器版本兼容性问题，解析方式可能会不一样)
+  return document.documentElement.clientHeight || document.body.clientHeight
+}
+
+function isReachBottom () {
+  const scrollTop = getScrollTop() // 获取滚动条的高度558
+  const winHeight = getWinHeight() // 一屏的高度 500
+  const scrollHeight = getScrollHeight()-115 // 获取文档总高度 937  1172
+
+
+  return scrollTop >= parseInt(scrollHeight) - winHeight
 }
 
 window.onscroll = function(){
+
   if($('.nodata').val()==1){
     return false;
   }
-  if(getScrollTop() + getWindowHeight() == getScrollHeight()){
+  if(isReachBottom()){
     var goods_id = document.getElementById('goods_id').value;
     document.getElementById('goods_id').value = parseInt(goods_id)+5;
            setLoading();
@@ -56,7 +55,7 @@ window.onscroll = function(){
                removeLoading();
                return  false;
              }
-             console.log(res.length);
+             console.log(res);
              for (var i = 0; i < res.length; i++) {
                temp+='<div class="marginTop">'
                       +'<table class="bgwhite" width="100%">'
