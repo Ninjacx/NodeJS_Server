@@ -28,14 +28,22 @@ router.post('/upload', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next){
-  var selectSQL = 'select * from t_goods limit 4';
-    var result = '';
-  conf.query(selectSQL,function(err,result){
-          var string=JSON.stringify(result);
-          result=JSON.parse(string);
-        console.log(result);
-      res.render('index', { title: "冰旗库",res:result });
-     });
+  var selectGoods = 'select * from t_goods limit 4';
+  var selectClassify = 'select * from t_classify limit 4';
+   var resGoods = conf.quertPromise(selectGoods);
+   var resClassify = conf.quertPromise(selectClassify);
+
+    var promise = Promise.all([resGoods,resClassify]);
+
+    promise.then(function([resGood,resClass]) {
+       res.render('index', { title: "冰旗库",res:resGood });
+    }).catch(function(err) {
+      // ...
+      //定义错误页面
+      console.log(err);
+    });
+
+
   // var data='';//mysql未安装
 });
 //精品推荐换一批随机4条

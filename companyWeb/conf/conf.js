@@ -7,7 +7,7 @@ var mysql = require('mysql');
 var pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '123456',
+    password: '',
     database: 'test',
     port: 3306
 });
@@ -25,5 +25,34 @@ function query(sql,callback){
       });
   });
 }
+
+//多条sql promise
+function quertPromise(sql){
+  return new Promise((resolve, reject) => {
+    // console.log(reject);
+    query(sql,function(err,result){ //类别信息
+      var result=JSON.stringify(result);
+           result=JSON.parse(result);
+           resolve(result);
+         });
+  });
+}
+/*
+var selectSQL = 'select * from t_goods limit 4';
+var classifySQL = 'select * from t_classify limit 4';
+ var sql1 = conf.quertPromise(selectSQL);
+ var sql2 = conf.quertPromise(classifySQL);
+  var p = Promise.all([sql1,sql2]);
+  p.then(function([a,b]) {
+    // ...
+    console.log(a);
+    console.log('`-----------------`');
+    console.log(b);
+  }).catch(function(err) {
+    // ...
+  });
+*/
+
 //module.
-exports.query=query;
+exports.query = query;
+exports.quertPromise = quertPromise;
