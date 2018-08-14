@@ -26,11 +26,11 @@ function query(sql,callback){
   });
 }
 
-//多条sql promise
+//执行多条sql promise
 function quertPromise(sql){
   return new Promise((resolve, reject) => {
     // console.log(reject);
-    query(sql,function(err,result){ //类别信息
+    query(sql,function(err,result){
       var result=JSON.stringify(result);
            result=JSON.parse(result);
            resolve(result);

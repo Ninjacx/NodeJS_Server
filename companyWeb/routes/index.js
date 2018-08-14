@@ -36,7 +36,7 @@ router.get('/', function(req, res, next){
     var promise = Promise.all([resGoods,resClassify]);
 
     promise.then(function([resGood,resClass]) {
-       res.render('index', { title: "冰旗库",res:resGood });
+       res.render('index', { title: "冰旗库",res:resGood,classify:resClass});
     }).catch(function(err) {
       // ...
       //定义错误页面
