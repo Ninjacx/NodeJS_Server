@@ -28,10 +28,10 @@ router.post('/upload', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next){
-  var selectGoods = 'select * from t_goods limit 4';
-  var selectClassify = 'select * from t_classify limit 4';
-   var resGoods = conf.quertPromise(selectGoods);
-   var resClassify = conf.quertPromise(selectClassify);
+    var selectGoods = 'select * from t_goods limit 4';
+    var selectClassify = 'select * from t_classify limit 4';
+    var resGoods = conf.quertPromise(selectGoods);
+    var resClassify = conf.quertPromise(selectClassify);
 
     var promise = Promise.all([resGoods,resClassify]);
 

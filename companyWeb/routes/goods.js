@@ -4,6 +4,8 @@
 var express = require('express');
 var router = express.Router();
 var conf = require('../conf/conf');
+var url = require('url');
+var common = require('../common/comm');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -26,11 +28,32 @@ router.get('/', function(req, res, next) {
         }
           var string=JSON.stringify(result);
           result=JSON.parse(string);
+          console.log(bannerArr);
       res.render('goods/details',{banner:bannerArr,res:result});
-
-
-
      });
 });
+
+
+router.get('/classify', function(req, res, next){
+  var arg = url.parse(req.url,true).query;
+  var selectSQL = `select * from t_goods leftJoin  where classify_id=${arg.id} limit 6`;
+
+    conf.query(selectSQL,function(err,result){
+      result = common.RRD(result);
+          // console.log(result)
+      res.render('goods/classify',{reslist:result});
+    });
+  //res.render('goods/classify',{res:123});
+});
+
+router.get('/getClassifyList',(req, res, next)=>{
+    // console.log(req.query.goods_id);
+    var selectSQL = 'SELECT * from t_goods  LIMIT 5 OFFSET '+req.query.goods_id;
+    conf.query(selectSQL,function(err,result){
+            var result=JSON.stringify(result);
+        res.json({res:result});
+      });
+});
+
 
 module.exports = router;
