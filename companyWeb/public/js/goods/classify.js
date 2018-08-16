@@ -1,5 +1,4 @@
 window.onresize=size();
-
 window.onload = function(){
   //图片加载
   setImg('.load-img');
@@ -33,7 +32,6 @@ function size(){
   }
   document.documentElement.style.fontSize = rem+'px';
 }
-
 
 $(document).ready(function(){
   $('.changeRecommend').click(()=>{

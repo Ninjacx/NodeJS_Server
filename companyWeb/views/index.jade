@@ -50,7 +50,7 @@ block content
           -for (var i = 0;i<classify.length;i++)
             div.mui-col-sm-4(style="width:25%;list-style:none")
                 li(style="text-align:center")
-                    a.mui-navigate-center
+                    a.mui-navigate-center(href="./goods/classify?id=#{classify[i].id}")
                      div
                       img.load-img(style="padding:.3rem" src="../images/loading.png" data-img='#{classify[i].classify_img}' width='100%')
                      span.fs14 #{classify[i].classify_name}
