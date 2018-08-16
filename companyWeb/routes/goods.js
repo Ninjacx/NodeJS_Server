@@ -38,12 +38,7 @@ router.get('/classify', function(req, res, next){
   var arg = url.parse(req.url,true).query;
   var selectSQL = `select * from t_goods leftJoin  where classify_id=${arg.id} limit 6`;
   var selectTitle = `select classify_name,classify_img from t_classify   where id=${arg.id}`;
-    // conf.query(selectSQL,function(err,result){
-    //   result = common.RRD(result);
-    //   res.render('goods/classify',{reslist:result});
-    // });
-  //res.render('goods/classify',{res:123});
-
+ 
   var result = conf.quertPromise(selectSQL);
   var resTitle = conf.quertPromise(selectTitle);
 

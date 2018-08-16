@@ -9,6 +9,11 @@ block content
     //没有更多数据标识
     input.nodata(type="hidden" value="0")
 
+  //div #{resTitle[0].classify_name}
+  -var resT = resTitle;
+  -if(resT!='')
+   div #{resTitle[0].classify_name}
+
   div#tempList
       -for (var i = 0;i<reslist.length;i++)
           div.marginTop
