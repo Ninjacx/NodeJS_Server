@@ -1,0 +1,38 @@
+extends ../layout
+block content
+  include ../common/header.jade
+  script(src="../js/upLoading.js")
+  script(src="../js/goods/classify.js")
+  div#main
+  //下拉记录
+    input#goods_id(type="hidden" value="0")
+    //没有更多数据标识
+    input.nodata(type="hidden" value="0")
+
+  //div #{resTitle[0].classify_name}
+  -var resT = resTitle;
+  -if(resT!='')
+   div #{resTitle[0].classify_name}
+
+  div#tempList
+      -for (var i = 0;i<reslist.length;i++)
+          div.marginTop
+             table.bgwhite( width="100%")
+                tbody
+                       tr
+                         td(rowspan="2" style="width: 40%;")
+                          img.load-img.padding-outline(style="width:100%" src="../images/loading.png" data-img="#{reslist[i].url}")
+                         td(style="vertical-align: top; padding: 0.3rem 0.6rem;")
+                           div.fs16(style="font-weight: bold;") #{reslist[i].title}
+                           div.fs14(style="color: rgb(160, 160, 160); margin-top: 0.4rem;") #{reslist[i].description}
+                         tr
+                           td(style="vertical-align: bottom; padding-left: 0.3rem; padding-bottom: 0.3rem;")
+                            div(style="color:#FD2A39")
+                             span.fwBold ￥
+                             span.fs15.marginRight #{reslist[i].price}
+                             del.fs12(style="margin-left: 0.39rem; color: rgb(172, 172, 172);") 市场价：￥#{reslist[i].big_price}
+
+
+
+   div.Tcenter.fs13.margin-outline.isShowMsg 没有数据了~
+  include ../common/footer.jade

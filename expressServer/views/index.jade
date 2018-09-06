@@ -1,0 +1,128 @@
+extends layout
+block content
+  include ./common/header.jade
+  script(src="../js/upLoading.js")
+  div#container
+   //  div#panda
+    div.banner(style="display:none")
+     img(src='../images/index2.jpg' width='100%')
+     div.banner-text
+       div 移动互联网
+       div  追求卓越
+       div  未来触手可及
+
+   div.col-xs-12.col-sm-6(style="display:none")
+    div#main
+  //下拉记录
+  input#goods_id(type="hidden" value="0")
+  //没有更多数据标识
+  input.nodata(type="hidden" value="0")
+
+  div.mui-slider
+     div.mui-slider-group.mui-slider-loop
+        div.mui-slider-item.mui-slider-item-duplicate
+         a(href="#")
+          img(src='../images/timg.jpg' width='100%')
+        div.mui-slider-item
+          a(href="#")
+           img(src='../images/timg.jpg' width='100%')
+        div.mui-slider-item
+          a(href="#")
+           img(src='../images/timg.jpg' width='100%')
+        div.mui-slider-item
+          a(href="#")
+           img(src='../images/timg.jpg' width='100%')
+        div.mui-slider-item
+          a(href="#")
+           img(src='../images/index2.jpg' width='100%')
+        div.mui-slider-item.mui-slider-item-duplicate
+          a(href="#")
+           img(src='../images/index2.jpg' width='100%')
+     div.mui-slider-indicator
+        div.mui-indicator.mui-active
+        div.mui-indicator
+        div.mui-indicator
+        div.mui-indicator
+
+
+    div.mui-content.marginTop.bgwhite
+        div.mui-row.paddingTB
+          -for (var i = 0;i<classify.length;i++)
+            div.mui-col-sm-4(style="width:25%;list-style:none")
+                li(style="text-align:center")
+                    a.mui-navigate-center(href="./goods/classify?id=#{classify[i].id}")
+                     div
+                      img.load-img(style="padding:.3rem" src="../images/loading.png" data-img='#{classify[i].classify_img}' width='100%')
+                     span.fs14 #{classify[i].classify_name}
+
+
+       div.mui-content.bgwhite.marginTop.paddingTB
+         div(style="text-align:center")
+           div.fs14 每周特价产品
+         div
+            div.mui-row
+                   div(style="width:33.3%;list-style:none;float:left")
+                       li(style="text-align:center")
+                           a.mui-navigate-center
+                            div.padding-outline
+                             img.load-img(src="../images/loading.png" data-img='http://img2.imgtn.bdimg.com/it/u=380612834,2294025216&fm=27&gp=0.jpg' width='100%')
+                   div(style="width:33.3%;list-style:none;float:left")
+                       li(style="text-align:center")
+                           a.mui-navigate-center
+                             div.padding-outline
+                              img(src='http://img3.imgtn.bdimg.com/it/u=1444690523,4165695038&fm=27&gp=0.jpg' width='100%')
+                   div(style="width:33.3%;list-style:none;float:left")
+                       li(style="text-align:center")
+                           a.mui-navigate-center
+                             div.padding-outline
+                              img(src='http://img3.imgtn.bdimg.com/it/u=3192178595,1770656906&fm=27&gp=0.jpg' width='100%')
+
+
+     div.mui-content.bgwhite.marginTop.paddingTB
+       div
+           div.fs14(style="text-align:center;position:relative;") 精品推荐
+            span.mui-badge.fs13.changeRecommend(style="position: absolute;right: 10px;") 换一批
+        div#temp.mui-row.marginLeft3
+           -for (var i = 0;i<res.length;i++)
+              div(style="width:50%;list-style:none;float:left")
+                  li(style="text-align:center")
+                      a.mui-navigate-center
+                       div.padding-outline
+                        img.load-img(style="height:120px;" src="../images/loading.png" data-img='#{res[i].url}' width='100%')
+                       div.fs14  #{res[i].title}
+    div#tempList
+      div.marginTop
+         table.bgwhite( width="100%")
+            tbody
+                   tr
+                     td(rowspan="2" style="width: 40%;")
+                      img.padding-outline(style="width:100%" src="http://img0.imgtn.bdimg.com/it/u=2966443550,3654504248&fm=27&gp=0.jpg")
+                     td(style="vertical-align: top; padding: 0.3rem 0.6rem;")
+                       div.fs16(style="font-weight: bold;") 野人谷经典甩棍
+                       div.fs14(style="color: rgb(160, 160, 160); margin-top: 0.4rem;") 合金钢金属材质强力甩棍，轻松碎砖。
+                     tr
+                       td(style="vertical-align: bottom; padding-left: 0.3rem; padding-bottom: 0.3rem;")
+                        div(style="color:#FD2A39")
+                         span.fwBold ￥
+                         span.fs15.marginRight 759.0
+                         del.fs12(style="margin-left: 0.39rem; color: rgb(172, 172, 172);") 市场价：￥2780
+
+       div.marginTop
+                            table.bgwhite( width="100%")
+                               tbody
+                                      tr
+                                        td(rowspan="2" style="width: 40%;")
+                                         img.padding-outline(style="width:100%" src="http://img0.imgtn.bdimg.com/it/u=2966443550,3654504248&fm=27&gp=0.jpg")
+                                        td(style="vertical-align: top; padding: 0.3rem 0.6rem;")
+                                          div.fs16(style="font-weight: bold;") 野人谷经典甩棍
+                                          div.fs14(style="color: rgb(160, 160, 160); margin-top: 0.4rem;") 合金钢金属材质强力甩棍，轻松碎砖。
+                                        tr
+                                          td(style="vertical-align: bottom; padding-left: 0.3rem; padding-bottom: 0.3rem;")
+                                           div(style="color:#FD2A39")
+                                            span.fwBold ￥
+                                            span.fs15.marginRight 759.0
+                                            del.fs12(style="margin-left: 0.39rem; color: rgb(172, 172, 172);") 市场价：￥2780
+
+    div.Tcenter.fs13.margin-outline.isShowMsg 没有数据了~
+
+  include ./common/footer.jade

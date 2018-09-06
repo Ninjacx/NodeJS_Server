@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  <script src="http://cdn.bootcss.com/vue/1.0.14/vue.js" charset="utf-8"></script>
+  <style media="screen">
+    .sty{
+      color:red;
+    }
+  </style>
+  </head>
+  <body>
+      <div id="app" class="">
+        <div class="">
+          {{level}}
+          {{first}}
+          {{second}}
+        </div>
+          <select v-model="first">
+            <option>上海</option>
+              <option>南京</option>
+          </select>
+
+
+          <div v-for="item  in task">
+              <div @click="toggle(item)" :class="{'sty':item.v}">
+                {{item.list}}
+              </div>
+          </div>
+
+          <select  v-model="itea" class="" name="" @change="getcity(provinces)">
+            <option v-for="provinces in province" value="{{provinces.pid}}">
+                {{provinces.pname}}
+            </option>
+          </select>
+
+          <select class="" name="">
+            <option v-for="citys in city" value="">
+                {{citys.cname}}
+            </option>
+          </select>
+
+      </div>
+
+      <script type="text/javascript">
+    function father(){
+      console.log(3);
+      var b = function(){
+        // console.log('this is son1!!!');
+      }
+        this.son = function(){
+         console.log('this is son');
+       }
+       b();
+    }
+    // var a = '';
+   var a = function(){
+    console.log('this is mother');
+  }
+
+
+window.onload = function(){
+ var json = {a:15,b:6,c:3};
+ var arr = [12,3,6,5,8];
+ for(i in json){
+   console.log('第'+i+'值='+json[i]);
+ }
+  // a();
+  // father();
+  // var ff = new father();
+  // ff.son();
+  // ff.b;
+  // a.mother();
+}
+
+
+
+         var vue = new Vue({
+           el:"#app",
+          data:{
+            message:1,
+            first:'jady1',
+            itea:[1],
+            cvalid:'',
+            second:'xbbbb',
+            province:[{"pname":"上海","pid":1},{"pname":"浙江省","pid":2},{"pname":"江苏省","pid":3}],
+            city:[{"pid":1,"cname":"黄浦区"},{"pid":1,"cname":"杨浦区"}],
+            allcity:[{"pid":1,"cname":"黄浦区"},{"pid":1,"cname":"杨浦区"},{"pid":2,"cname":"嘉兴市"},{"pid":2,"cname":"宁波市"},{"pid":3,"cname":"苏州市"},{"pid":3,"cname":"泰兴"},{"pid":3,"cname":"扬州"}],
+            task:[{"list":111,"v":false},{"list":222,"v":true},{"list":333,"v":true}]
+          },computed:{
+            level:function(){
+              console.log(this.message);
+              if(this.message>100){
+                return '>100';
+              }else{
+                return '<100';
+              }
+            }
+          },methods:{
+             toggle:function(item){
+              item.v = !item.v
+            },
+            getcity:function(item){
+               var pid = this.itea;
+              // var arr = [];4
+              var r = this.allcity.filter(function (item) {
+                  // return  this.allcity[i].pid;
+               return item.pid==pid;
+              });
+
+               // for (var i = 0; i < this.allcity.length; i++) {
+               //    if(pid==this.allcity[i].pid){
+               //      arr.push({"pid":this.allcity[i].pid,"cname":this.allcity[i].cname});
+               //    }
+               // }
+            // this.city=[];
+            this.city = r;
+            }
+          }
+         })
+      </script>
+
+  </body>
+</html>

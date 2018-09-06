@@ -1,0 +1,22 @@
+extends ../layout
+block content
+  include ../common/header.jade
+  //script(src="../js/upLoading.js")
+  div#container
+   div.mui-slider
+     div.mui-slider-group.mui-slider-loop
+        div.mui-slider-item.mui-slider-item-duplicate
+         a(href="#")
+          img(src='../images/a.jpg' width='100%')
+        -for(var i=0 ;i<banner.length;i++)
+          div.mui-slider-item
+            a(href="#")
+             img(src='#{banner[i]}' width='100%')
+          div.mui-slider-item.mui-slider-item-duplicate
+            a(href="#")
+             img(src='../images/c.jpg' width='100%')
+     div.mui-slider-indicator
+        div.mui-indicator.mui-active
+        div.mui-indicator
+        div.mui-indicator
+  include ../common/footer.jade

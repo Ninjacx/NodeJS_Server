@@ -1,0 +1,27 @@
+extends ../layout
+block content
+  include ../common/header.jade
+
+  div#container
+    h2 资料：
+    div if == false (null=>空对象 ,undefined=>未定义变量 , NaN =>非数字,0=>数字或字符串 ,空字符串)
+    div 循环:
+      div for(i in json) 方式循环json i => json下标
+    div    数组:
+    div arr.length = 0 快速情况数组;
+    div arr.pop 删除数组最后一个元素
+    div 响应式布局：
+    div style media="screen">
+    div  @media (max-width: 768px) {
+    div   #col{color:red;background: yellow;}
+    div  }
+    div @media (min-width: 768px) and (max-width: 992px) {
+    div #col{color:yellow;background: red;}
+    div   }
+    div @media (min-width: 992px) and (max-width: 1200px) {
+     div #col{color:blue;background: white;}
+    div  }
+     div @media (min-width: 1200px) {
+     div   #col{color:white;background: blue;}
+     div  }
+   div  /style>
