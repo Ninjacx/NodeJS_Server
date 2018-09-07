@@ -42,10 +42,19 @@ router.get('/', function(req, res, next){
       //定义错误页面
       console.log(err);
     });
-
-
   // var data='';//mysql未安装
 });
+
+//首页类别4条
+router.get('/GetClassify',(req, res, next)=>{
+    var selectSQL = 'select * from t_classify limit 4';
+    conf.query(selectSQL,function(err,result){
+            var result=JSON.stringify(result);
+            console.log(result);
+        res.json({res:result});
+      });
+});
+
 //精品推荐换一批随机4条
 router.get('/changeRecommend',(req, res, next)=>{
     var selectSQL = 'select * from t_goods order by rand() LIMIT 4';
@@ -106,6 +115,9 @@ router.post('/saveText', function(req, res, next) {
     });
 });
 
+router.get('/i', function(req, res, next) {
+  res.sendFile(`${process.cwd()}/public/dist/index.html`, {title:'冰旗库'});
+});
 
 
 router.get('/b', function(req, res, next) {
@@ -113,7 +125,7 @@ router.get('/b', function(req, res, next) {
   res.sendFile(`${process.cwd()}/public/html/login.html`, {title:'index'});
   // res.jsonp({"bbb":123});
 });
-//router.use(staticPath('./public'));
+router.use(staticPath('./public'));
 
 
 module.exports = router;
