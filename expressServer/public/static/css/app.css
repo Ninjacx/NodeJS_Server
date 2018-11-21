@@ -1,0 +1,163 @@
+.fade-enter-active {
+  transition: all .2s ease-in-out;
+  opacity: 1;
+}
+.fade-leave-active {
+  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  opacity: 0;
+}
+.fade-enter, .fade-leave-active {
+  /* transform: translateY(50px); */
+  opacity: 0;
+}
+/*
+  默认初始化
+*/
+
+    body{
+      margin: 0;
+      background:#EDEDF2;
+    }
+    /* 模态框提示 最顶层 */
+    .mint-toast{
+      z-index: 3000;
+    }
+    .bgWhite{
+      background: white !important;
+    }
+    .colorWhite{
+      color: white !important;
+    }
+    .TextCenter{
+      text-align: center !important;
+    }
+    .TextLeft{
+      text-align: left !important;
+    }
+    .TextRight{
+      text-align: right !important;
+    }
+    .fs15{
+      font-size: .2rem !important;
+    }
+    .fs16{
+      font-size: .25rem !important;
+    }
+    .fs17{
+      font-size: .30rem !important;
+    }
+    .fs18{
+      font-size: .35rem !important;
+    }
+    .fs19{
+      font-size: .4rem !important;
+    }
+    .fs20{
+      font-size: .5rem !important;
+    }
+    .fsTitle{
+      font-size: .33rem !important;
+    }
+    .padTop{
+      padding-Top:.2rem !important;
+    }
+    .padLeft01{
+      padding-left:.1rem !important;
+    }
+    .padLeft{
+      padding-left:.2rem !important;
+    }
+    .padLeft03{
+      padding-left:.3rem !important;
+    }
+    .padRight{
+      padding-right:.2rem !important;
+    }
+    .marBottom{
+      margin-bottom:.1rem !important;
+    }
+    .marLeft{
+      margin-left:.2rem !important;
+    }
+    .marRight{
+      margin-right:.2rem !important;
+    }
+    .marTop{
+      margin-top:.1rem !important;
+    }
+    .marTop02{
+      margin-top:.05rem !important;
+    }
+    .padBottom{
+      padding-bottom: .1rem;
+    }
+    .margin02{
+      margin:.2rem;
+    }
+    .margin03{
+      margin:.3rem;
+    }
+    .padding01{
+      padding:.1rem;
+    }
+    .padding02{
+      padding:.2rem;
+    }
+    .padding03{
+      padding:.3rem;
+    }
+    .borderBottom{
+      border-bottom: 1px solid #C6C6C6
+    }
+    .marginBT{
+      margin-bottom: 2.1rem;
+    }
+    .priceColor{
+      color:#FF3E23;
+    }
+    .red{
+      color: crimson !important;
+    }
+    ul,li{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .displayBlock{
+      display: inline-block;
+    }
+    .look{
+      color: #4693EC;
+      font-weight: bold;
+      font-size: .35rem;
+    }
+    .floatLeft{
+      float:left;
+    }
+    .floatRight{
+      float:right;
+    }
+    .headerTop{
+      margin-top: 40px;
+    }
+    #app {
+      font-family: 'Avenir', Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      /* text-align: center; */
+      font-size: .25rem;
+      /* margin-bottom: 2.1rem; */
+      /* color: #2c3e50; */
+      /* margin-top: 60px; */
+    }
+    img{
+      padding: .1rem;
+      width:100%;
+      box-sizing: border-box;
+    }
+    a{
+      text-decoration: none;
+    }
+.mint-toast.is-placebottom{
+  bottom: auto !important;
+}

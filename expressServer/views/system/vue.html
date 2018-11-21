@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>冰旗库后台管理系统</title>
+  <link rel="stylesheet" href="../css/layui.css">
+  <script src="/js/jquery.min.js" charset="utf-8"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  
+    <% include header.html %>
+  
+
+	<%-include("left.html")%>
+
+  <div class="layui-body">
+  
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+			<strong>vue</strong>
+			<table class="layui-table">
+			  <colgroup>
+				<col width="100">
+				<col >
+				<col>
+			  </colgroup>
+			  <thead>
+				<tr>
+				  <th>方法</th>
+				  <th>用法</th>
+				</tr> 
+			  </thead>
+			  <tbody>
+				<tr>
+				  <td >route</td>
+				  <td>路由传取值: 穿this.$route.push({name:'路由名'},params:{id:1}) 取this.$route.query(params).参数</td>
+				</tr>
+				<tr>
+				  <td>props</td>
+				  <td> 子组件获取父传入的值或者方法等，传<组件 传入名="值" /> 取props:['传入名']</td>
+				</tr>
+				<tr>
+				  <td>this.$parent,ref=""</td>
+				  <td> 子组件获取父传入的值或方法等 this.$parent.xxx ,this.$refs.值,方法等 DOM操作</td>
+				</tr>
+			  </tbody>
+			</table>
+	</div>
+  </div>
+  
+  <div class="layui-footer">
+	
+    <!-- 底部固定区域 -->
+    © layui.com - 底部固定区域 
+  </div>
+</div>
+<script src="../js/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  element.init();
+  
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+	    <li class="layui-nav-item <% if(left==2) { %>layui-this <% }%>" ><a href="/system/user">用户管理</a></li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">商品管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="/system/test?id=2">商品列表</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a href="javascript:;">订单管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">订单列表</a></dd>
+            <dd><a href="/system/test?id=3">列表二</a></dd>
+            <dd class="<% if(left==3) { %>layui-this <% }%>"><a href="/system/test?id=1">超链接</a></dd>
+          </dl>
+        </li>
+		<li class="layui-nav-item layui-nav-itemed">
+          <a href="javascript:;">DOC</a>
+          <dl class="layui-nav-child">
+            <dd class="<% if(left==5) { %>layui-this <% }%>"><a href="/system/vue">VUE</a></dd>
+            <dd class="<% if(left==6) { %>layui-this <% }%>"><a href="/system/css">CSS</a></dd>
+            <dd class="<% if(left==7) { %>layui-this <% }%>"><a href="/system/else">其它</a></dd>
+			<dd class="<% if(left==8) { %>layui-this <% }%>"><a href="/system/else">react</a></dd>
+          </dl>
+        </li>
+       
+      </ul>
+    </div>
+  </div>

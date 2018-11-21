@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>冰旗库后台管理系统</title>
+  <link rel="stylesheet" href="../css/layui.css">
+  <script src="/js/jquery.min.js" charset="utf-8"></script>
+  <script src="/js/wangEditor.min.js" charset="utf-8"></script>
+  <script src="../js/edit.js" charset="utf-8"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  
+    <% include header.html %>
+  
+
+	<%-include("left.html",{user:123})%>
+
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+	
+		<div id="div1">
+			<div><%-res[0].details-%></div>
+		</div>
+		<input type="button" id="btn1" value="提交" />
+		
+	</div>
+  </div>
+  
+  <div class="layui-footer">
+	
+    <!-- 底部固定区域 -->
+    © layui.com - 底部固定区域 
+  </div>
+</div>
+<script src="../js/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  element.init();
+  
+});
+</script>
+</body>
+</html>
