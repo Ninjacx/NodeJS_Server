@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 var goodsRouter = require('./routes/goods');
 var carRouter = require('./routes/shopCar');
 var system = require('./routes/system');
+var session =require("express-session");
 
 var app = express();
 
@@ -57,6 +58,20 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+app.use(session({
+    secret :  'secret', // 对session id 相关的cookie 进行签名
+    resave : true,
+    saveUninitialized: false, // 是否保存未初始化的会话
+    cookie : {
+        maxAge : 1000 * 60 * 3, // 设置 session 的有效时间，单位毫秒
+    },
+}));
+
+app.use(function(req, res, next){
+    res.locals.token = req.session.token;
+    next();
 });
 
 module.exports = app;

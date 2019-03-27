@@ -10,7 +10,6 @@
 		.home-top ul li span:hover{
 			color: #f58103;
 			cursor: pointer;
-			
 		}
 		.home-top ul li {
 			float:left;
@@ -33,7 +32,7 @@
 			<ol class="carousel-indicators">
 				<li data-target="#Carousel" data-slide-to="0" class="active"></li>
 				<li data-target="#Carousel" data-slide-to="1"></li>
-			</ol>   
+			</ol>
 			<!-- 轮播（Carousel）项目 -->
 			<div class="carousel-inner">
 				<div class="item active">
@@ -54,14 +53,11 @@
 				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 				<span class="sr-only">Next</span>
 			</a>
-		</div> 
-		 
-			
+		</div>
+
 		  <div class="home-main">
 			<!-- 内容主体区域 -->
-			
 			<div class="home-top marginTop20 panel panel-default">
-			
 			  <div class="panel-body">
 				<ul>
 					<li><span>最新商品：100</span><strong>|</strong></li>
@@ -69,7 +65,7 @@
 					<li><span>同城商品：100</span></li>
 					<li><a href="/issue"><span>快速发布商品</span></a></li>
 				</ul>
-				
+
 			  </div>
 			</div>
 			<div class="home-search">
@@ -80,29 +76,28 @@
 				  </span>
 				</div>
 		  </div>
-			
+
 			<div class="row home-goods">
-				加载失败请刷新…
+				加载失败，请刷新…
 			</div>
-			<div class="box">
+			   <div class="box">
 					<div id="pagination" class="page fl"></div>
 				</div>
 		  </div>
-		  
-			<!-- 底部固定区域 -->
-			<% include footer.html %>
-		</div>
 
+			<!-- 底部固定区域 -->
+		</div>
+<% include footer.html %>
 <script>
 	var HTMLLIST = function(goods_id,ff){
 		$.get('/getGoodsList?limit=20',{goods_id: goods_id},function(result){
-			
+
 			console.log(JSON.parse(result.res));
 				var res = JSON.parse(result.res);
 				if(ff){
 					ff(res);
 				}
-				
+
 				var html = '';
 				$.each(JSON.parse(result.res),function(i,e){
 					html+='<div class="col-sm-6 col-md-3">'
@@ -112,14 +107,14 @@
 								+'	<h5>'+e.title+'</h5><span>'+Common.Time(e.createtime)+'</span>'
 								+' 	<p>一些示例文本。一些示例文本。</p>'
 								+'  	<a href="#" class="btn btn-default" role="button">购买</a>'
-								+ '</div>'	
-							+'</div>'	
-					+'</div>'	
+								+ '</div>'
+							+'</div>'
+					+'</div>'
 				});
-				
+
 				$('.home-goods').html(html);
 				Common.loadingImg('._img');
-				
+
 			});
 	}
 
@@ -140,20 +135,9 @@
 						}
 						});
 					}
-					
+
 			  });
-			  
 		});
-		 document.addEventListener('scroll',function(){
-		 var $search = $('.home-search');
-			if(document.body.scrollTop>=$('.home-search').offset().top){
-				
-		
-			}else{
-				
-				
-			}
-		 })
 </script>
 </body>
 </html>

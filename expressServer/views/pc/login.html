@@ -87,20 +87,18 @@
 				<span class="login-type floatRight">手机登录</span>
 				<div class="borders" ></div>
 			</h3>
-		
-	
-				<!--登录-->
-				<form action="#" method="post" id="phonerLand">
+
+
+				<!--登录onsubmit="return false"-->
+				<form action="/login" method="post" id="phonerLand" >
 					<div class="loginBallBoxes box-login">
-						
 							<div class="marginTop20">
-								<input type="text" name=""  placeholder="请输入账号" class="form-control msg_phone err">
+								<input type="text" name="account"  placeholder="请输入账号" class="form-control msg_phone err" >
 							</div>
 							<div class="marginTop20">
-								<input type="text" name=""  placeholder="请输入密码" class="form-control msg_phone err">
+								<input type="password" name="password"  placeholder="请输入密码" class="form-control msg_phone err"  >
 							</div>
-						
-						
+
 					</div>
 					<div class="loginBallBoxes box-phone box-hidden" >
 							<div class="marginTop20">
@@ -113,16 +111,17 @@
 								<div style="display: table-cell; padding-left: 10px;"><input type="button" value="获取验证码"></div>
 								<input type="hidden" id="scretPassCode">
 							</div>
-						
+
+					</div>
+					<div>
+						<input id="submitPhoner" name="submitPhoner" type="submit" class="login-btn  " alt="登录" value="登录">
 					</div>
 				</form>
-				<div>
-					<input id="submitPhoner" name="submitPhoner" type="button" class="login-btn  " alt="登录" value="登录">
-				</div>
+
 		<div class="marginTop20">立即注册</div>
 	</div>
 			</div>
-		
+
 	</div>
     <!-- 底部固定区域 -->
 	<% include footer.html %>
@@ -132,20 +131,20 @@
 		void function(){
 			$('.login-box').css('right',$('body').width()/100+'%');
 		}()
-	
+
 		$(window).resize(function () {
 			$('.login-box').css('right',$('body').width()/100+'%');
 		})
-	
+
 	// 登陆切换
 	$('.login-type').click(function(){
-		
+
 		if($(this).attr('type')){
 			// 账号登陆
 			$('.borders').removeClass('translateX150');
 			$('.box-login').removeClass('box-hidden');
 			$('.box-phone').addClass('box-hidden');
-			
+
 		}else{
 			// 手机登录
 			$('.borders').addClass('translateX150');

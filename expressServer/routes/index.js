@@ -71,7 +71,7 @@ router.get('/getMember',(req, res, next)=>{
 			res.json({count:resCount,list:result});
 		  });
       });
-     
+
 });
 
 
@@ -98,9 +98,9 @@ router.get('/changeRecommend',(req, res, next)=>{
 
 //获取产品规格
 router.get('/getSize',(req, res, next)=>{
-	
-    var selectSQL = `select t_size_accessories.size_name,t_goodssize_price.* from t_goods 
-	left join t_goodsSize_price on t_goodsSize_price.goods_id = t_goods.id 
+
+    var selectSQL = `select t_size_accessories.size_name,t_goodssize_price.* from t_goods
+	left join t_goodsSize_price on t_goodsSize_price.goods_id = t_goods.id
 	left join t_size_accessories on t_goodsSize_price.size_id = t_size_accessories.id where t_goods.id = ${req.query.id}`;//${req.query.id}
     conf.query(selectSQL,function(err,result){
             var result=JSON.stringify(result);
@@ -110,7 +110,7 @@ router.get('/getSize',(req, res, next)=>{
 
 //产品详情
 router.get('/GoodsDetails',(req, res, next)=>{
-    var selectSQL = `select t_goods.title,t_goods.price,t_goods_details.* from 
+    var selectSQL = `select t_goods.title,t_goods.price,t_goods_details.* from
 t_goods_details left join t_goods on t_goods.id = t_goods_details.goods_id where goods_id = ${req.query.id} limit 1`;//${req.query.id}
     conf.query(selectSQL,function(err,result){
 		if(result!=""){
@@ -119,7 +119,7 @@ t_goods_details left join t_goods on t_goods.id = t_goods_details.goods_id where
 		}else{
 			res.json({res:-1});
 		}
-            
+
       });
 });
 
@@ -158,8 +158,8 @@ router.get('/issue',(req, res, next)=>{
 
 
 router.post('/regist', function(req, res, next) {
-  
-  
+
+
   var {email,phone,password}=req.body;
   var psw = uuidv5(password, uuidv5.DNS);
   var isHave_user  = `select id from t_user where account = ${phone} and is_del = 0 limit 1`;
@@ -176,7 +176,7 @@ router.post('/regist', function(req, res, next) {
 				  conf.query(`select * from t_user where id = ${resID.insertId} and is_del = 0 limit 1`,function(err,resUser){
 					res.json(resUser);
 				})
-				  
+
 			  }
 		  });
 	  }
@@ -184,69 +184,39 @@ router.post('/regist', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
- /* var {account,password}=req.body;
-  var psw = uuidv5(password, uuidv5.DNS);
-  console.log(psw);
-  var selectSQL = `select * from t_user where account = '${account}' and pwd = '${psw}' limit 1`;
-  var answer = -1;
-  conf.query(selectSQL,function(err,result){
-//	  console.log(result);
-	//	console.log(answer);
-		if(result!=''&&result){
-			answer = result[0];
-			answer=JSON.stringify(answer);
-		}
-		//console.log(answer);
-		  res.json({res:answer});
-    });*/
-	
+	// res.locals.token=1003 ;//req.session.user;
 	res.render('pc/login',{hidden:2});
 });
 
 router.get('/register', function(req, res, next) {
- /* var {account,password}=req.body;
-  var psw = uuidv5(password, uuidv5.DNS);
-  console.log(psw);
-  var selectSQL = `select * from t_user where account = '${account}' and pwd = '${psw}' limit 1`;
-  var answer = -1;
-  conf.query(selectSQL,function(err,result){
-//	  console.log(result);
-	//	console.log(answer);
-		if(result!=''&&result){
-			answer = result[0];
-			answer=JSON.stringify(answer);
-		}
-		//console.log(answer);
-		  res.json({res:answer});
-    });*/
-	
+
 	res.render('pc/register');
 });
 // 用户登录接口 保存进session 前台获取保存 对比
 router.post('/login', function(req, res, next) {
+	// console.log(req.session.token);
   var {account,password}=req.body;
   var psw = uuidv5(password, uuidv5.DNS);
   console.log(psw);
   var selectSQL = `select * from t_user where account = '${account}' and pwd = '${psw}' limit 1`;
   var answer = -1;
   conf.query(selectSQL,function(err,result){
-//	  console.log(result);
-	//	console.log(answer);
-		if(result!=''&&result){
-			answer = result[0];
-			answer=JSON.stringify(answer);
-		}
-		//console.log(answer);
-		  res.json({res:answer});
+			if(result!=''&&result){
+				var token = uuidv1(); // 登录成功token
+				res.locals.token = token;
+				res.json({res: 200,token: token,msg: "登录成功"});
+			}else{
+				res.json({res:-1,msg: "账号或密码错误"});
+			}
     });
 });
 
 //获取订单信息
 router.get('/GetOrder',(req, res, next)=>{
-	
+
 	var {id} = req.query;
 	// 提交订单
-	var Order = `select t_goods.title,t_size_accessories.size_name,t_goodssize_price.url,t_order.amount,t_order.createtime,t_goodssize_price.price,t_order_details.count from t_order 
+	var Order = `select t_goods.title,t_size_accessories.size_name,t_goodssize_price.url,t_order.amount,t_order.createtime,t_goodssize_price.price,t_order_details.count from t_order
 						left join t_order_details on t_order.id = t_order_details.order_id
 						left join t_goodssize_price on t_goodssize_price.id = t_order_details.SizePrice_id
 						left join t_goods on t_goods.id = t_goodssize_price.goods_id
@@ -257,22 +227,22 @@ router.get('/GetOrder',(req, res, next)=>{
 				 res.json(result);
 			}
 		});
-		
+
 });
 //获取订单列表
 router.get('/GetOrderList',(req, res, next)=>{
 	var  {uid,status} = req.query;
 	if(uid!=undefined&&status!=undefined){
 		var orderList = `SELECT * from t_order WHERE uid = ${uid}  and status = ${status}`;
-	
+
 	// 提交订单
-	var orderDetailList = `select t_goods.title,t_size_accessories.size_name,t_goodssize_price.url,t_order.amount,t_order.createtime,t_goodssize_price.price,t_order_details.count,t_order_details.order_id from t_order 
+	var orderDetailList = `select t_goods.title,t_size_accessories.size_name,t_goodssize_price.url,t_order.amount,t_order.createtime,t_goodssize_price.price,t_order_details.count,t_order_details.order_id from t_order
 						left join t_order_details on t_order.id = t_order_details.order_id
 						left join t_goodssize_price on t_goodssize_price.id = t_order_details.SizePrice_id
 						left join t_goods on t_goods.id = t_goodssize_price.goods_id
 						left join t_size_accessories on t_size_accessories.id = t_goodssize_price.size_id
 						where t_order.uid = ${uid} and status = ${status} order by t_order.createtime desc`;
-						
+
 			   let oList = conf.quertPromise(orderList);
 			   let oDetailList = conf.quertPromise(orderDetailList);
 
@@ -287,8 +257,8 @@ router.get('/GetOrderList',(req, res, next)=>{
 	}else{
 		res.json(-1);
 	}
-	
-	
+
+
 		/*conf.query(InsertOrder,function(err,result){
 			if(result!=''&&result){
 					res.json(result)
@@ -333,7 +303,7 @@ router.get('/SetOrder',(req, res, next)=>{
 					res.json(result);
 				})
 			}
-				
+
 		 }
       });
 });
@@ -385,9 +355,9 @@ router.get('/', function(req, res, next) {
     if(agentID){
         res.sendFile(`${process.cwd()}/public/index.html`, {title:'冰旗库'});
     }else{
-		
-		
-		
+
+
+
         res.render('pc/index', { hidden: 1});
     }
 });
