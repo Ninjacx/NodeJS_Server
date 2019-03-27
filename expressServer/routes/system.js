@@ -69,7 +69,8 @@ router.post('/upload', function(req, res, next) {
 router.post('/saveText', function(req, res, next) {
   // var arg = url.parse(req.body,true).query;
   var {id,txt}=req.body;
-  var selectSQL = `update  t_goods_details SET details = '${txt}'  WHERE goods_id = 1`;
+  console.log(id);
+  var selectSQL = `update  t_goods_details SET details = '${txt}'  WHERE goods_id = ${id}`;
   conf.query(selectSQL,function(err,result){
       res.json({result:200});
     });

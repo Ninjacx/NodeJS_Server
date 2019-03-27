@@ -123,6 +123,9 @@
       padding: 0;
       list-style: none;
     }
+    .DetailImgStyle img{
+       width: 100%;
+    }
     .displayBlock{
       display: inline-block;
     }
@@ -151,13 +154,12 @@
       /* margin-top: 60px; */
     }
     img{
-      padding: .1rem;
-      width:100%;
+      /*padding: .1rem;*/
       box-sizing: border-box;
     }
     a{
       text-decoration: none;
     }
-.mint-toast.is-placebottom{
-  bottom: auto !important;
-}
+    .mint-toast.is-placebottom{
+      bottom: auto !important;
+    }

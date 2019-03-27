@@ -1,0 +1,82 @@
+body ul{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+body{
+  padding: 0;
+  margin: 0;
+}
+a{
+	color:#000000;
+}
+.red{
+	color:red;
+	margin-right:5px;
+}
+.form-control{
+	display:initial;
+	width:100%;
+}
+a:hover{
+	color: #f58103;
+	text-decoration: none;
+	cursor: pointer;
+}
+.home-main{
+	margin: 0 auto;
+	width: 1050px;
+}
+.optionWidth{
+	width:110px;
+}
+.Tcenter{
+  text-align: center;
+}
+.fwBold{
+  font-weight: bold;
+}
+.marginLeft10{
+  margin-left:10px;
+}
+.marginRight10{
+  margin-left: 10px;
+}
+.marginTop10{
+    margin-top: 10px;
+}.marginBottom10{
+    margin-bottom: 10px;
+}
+.marginTop20{
+    margin-top: 20px;
+}.marginBottom20{
+    margin-bottom: 20px;
+}
+.marginTB{
+	margin:30px 0;
+}
+.fs12{
+  font-size: 12px;
+}.fs13{
+  font-size: 13px;
+}.fs14{
+  font-size: 14px;
+}.fs15{
+  font-size: 15px;
+}.fs16{
+  font-size: 16px;
+}.fs17{
+  font-size: 16px;
+}.fs18{
+  font-size: 16px;
+}.fs19{
+  font-size: 16px;
+}.fs20{
+  font-size: 16px;
+}
+.floatRight{
+	float:right;
+}
+.bgwhite{
+  background: white;
+}

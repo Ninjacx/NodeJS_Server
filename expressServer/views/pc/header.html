@@ -1,0 +1,53 @@
+﻿
+<style>
+	#header{
+		width: 1100px;
+		height:50px;
+		line-height:50px;
+		margin: 0 auto;
+		display: table;
+	}
+	#header ul:nth-child(1){
+		float: left;
+	}
+	#header ul:nth-child(2){
+		float: right;
+	}
+	#header ul li{
+		float: left;
+		margin: 0 10px;
+		cursor: pointer;
+	}
+	.banner-main{
+		width:1100px;
+		margin:0 auto;
+	}
+	.banner-main img{
+		width:100%;
+	}
+	body{
+		background: #f4f4f4;
+	}
+	#header>ul>li:hover{
+		color:#f58103;
+	}
+	.hidden{
+	       display:none;
+	}
+  </style>
+  
+<body>
+  <div id="header">
+	<ul>
+		<li class="<%if(hidden == 1){%> hidden <%}%>"><a href="/">首页</a></li>
+		<li class="<%if(hidden == 2){%> hidden <%}%>"><a href="/login">请登陆</a></li>
+		<li><a href="/login">免费注册</a></li>
+	</ul>
+	<ul>
+		<li>我的物品</li>
+		<li>购物车</li>
+		<li>收藏夹</li>
+		<li>联系客服</li>
+	</ul>
+  </div>
+</body>

@@ -1,0 +1,134 @@
+﻿
+<!DOCTYPE html>
+<html>
+
+	<% include common.html %>
+	<script src="/js/wangEditor.min.js" charset="utf-8"></script>
+
+<style>
+	.w-e-text-container{
+		min-height:500px;
+	}
+	#issueSubmit{
+		width: 20%;
+	}
+	.issue-main{
+		width:880px;
+		margin:0 auto;
+	}
+	.page-header{
+		border-bottom: 5px solid #ffbf09;
+	}
+</style>
+<body>
+<% include header.html %>
+<div>
+  <div class="issue-main">
+  <h3 id="pagination" class="page-header">发布商品</h3>
+	<form class="form-horizontal">
+	  <div>
+		<label  class=" control-label"><span class="red">*</span>商品名</label>
+		  <input type="text" class="form-control" id="inputEmail3" placeholder="请填写商品名">
+	  </div>
+	<div class="marginTop20">
+		 <label  class=" control-label"><span class="red">*</span>商品价格</label>
+		 <input type="text" class="form-control" id="inputEmail3" placeholder="商品价格">
+	  </div>
+	  <div class="marginTop20">
+		<label  class=" control-label"><span class="red">*</span>商品概述</label>
+		  <input type="text" class="form-control" id="inputEmail3" placeholder="请简述商品展示在首页">
+	  </div>
+	  <div class="marginTop20">
+		<label  class=" control-label">商品外部链接</label>
+		  <input type="text" class="form-control" id="inputEmail3" placeholder="外部链接方便客户直接购买">
+	  </div>
+	  <div class="marginTop20">
+		 <label  class=" control-label"><span class="red">*</span>联系人</label>
+		 <input type="text" class="form-control" id="inputEmail3" placeholder="请填写联系人">
+		</div>
+		<div class="marginTop20">
+		 <label  class=" control-label"><span class="red">*</span>联系电话</label>
+		 <input type="text" class="form-control" id="inputEmail3" placeholder="请填写联系电话">
+		</div>
+	  <div class="marginTop20">
+		<label  class=" control-label"><span class="red">*</span>所在地区</label>
+		 <select class="form-control optionWidth">
+		<option>请选择</option>
+		<option>上海</option>
+	 </select>
+	 <select class="form-control optionWidth">
+		<option>请选择</option>
+		<option>上海</option>
+	 </select>
+	  </div>
+	  <div class="marginTop10">
+		 <label  class=" control-label"><span class="red">*</span>详细地址</label>
+		  <input type="text" class="form-control" id="inputEmail3" placeholder="请填写详细地址">
+	  </div>
+		
+	  
+	  <div class="marginTop20">
+		<label  class=" control-label"><span class="red">*</span>商品首页图</label>
+		 <input type="file" class="form-control-file" id="goodsFile">
+	  </div>
+	</form>
+		<div>
+			<label>编辑商品详情（可直接复制文字与图片）</label>
+	    </div>
+		<div id="div1">
+			<div></div>
+		</div>
+		<div class=" marginTop20">
+			<a id="issueSubmit" class="btn btn-default" role="button">提交</a>
+		</div>
+	</div>
+    <!-- 底部固定区域 -->
+	<% include footer.html %>
+</div>
+
+<script>
+	//$('#goodsFile').get(0).files[0]
+window.onload = function(){
+  $('.w-e-text-container').css('height',window.innerHeight+'px !important');
+	
+  var E = window.wangEditor
+  var editor = new E('#div1')
+
+  // 配置服务器端地址
+  // editor.customConfig.uploadImgServer = '/a';
+  //editor.customConfig.uploadImgShowBase64 = true;   // 使用 base64 保存图片
+
+   editor.customConfig.uploadImgServer = '/system/upload';
+  // 进行下文提到的其他配置
+  // ……
+  // ……
+  // ……
+  editor.customConfig.uploadFileName = 'fileNames';
+  editor.customConfig.uploadImgMaxLength = 1
+  editor.create();
+
+
+
+  document.getElementById('issueSubmit').addEventListener('click', function () {
+     console.log(editor.txt.html());
+    $.post('/system/saveText',{'txt':editor.txt.html(),'id':getQueryString('id')},function(result){
+        console.log('success');
+    })
+    // 读取 html
+  }, false)
+
+}
+
+//获取浏览器url 参数值 ，name ：浏览器参数
+function getQueryString(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return unescape(r[2]);
+    }
+    return null;
+}
+
+</script>
+</body>
+</html>

@@ -133,15 +133,29 @@ router.get('/weekSpecial',(req, res, next)=>{
       });
 });
 
-//首页下拉产品每次取5条
+//首页产品分页通用
 router.get('/getGoodsList',(req, res, next)=>{
     // console.log(req.query.goods_id);
-    var selectSQL = 'SELECT * from t_goods  LIMIT 5 OFFSET '+req.query.goods_id;
-    conf.query(selectSQL,function(err,result){
+	// count 为分页数大于整数则多1
+    var selectSQL = `SELECT *,ceil((select COUNT(id) from t_goods)/20)as count from t_goods WHERE is_del = 0 LIMIT ${req.query.limit} OFFSET ${req.query.goods_id}`;
+      conf.query(selectSQL,function(err,result){
             var result=JSON.stringify(result);
         res.json({res:result});
       });
 });
+
+//首页产品展示
+router.get('/issue',(req, res, next)=>{
+    // console.log(req.query.goods_id);
+	// count 为分页数大于整数则多1
+    /*var selectSQL = `SELECT *,ceil((select COUNT(id) from t_goods)/20)as count from t_goods WHERE is_del = 0 LIMIT ${req.query.limit} OFFSET ${req.query.goods_id}`;
+      conf.query(selectSQL,function(err,result){
+            var result=JSON.stringify(result);
+        res.json({res:result});
+      });*/
+	  res.render('pc/issue', { hidden: ""});
+});
+
 
 router.post('/regist', function(req, res, next) {
   
@@ -169,6 +183,46 @@ router.post('/regist', function(req, res, next) {
   });
 });
 
+router.get('/login', function(req, res, next) {
+ /* var {account,password}=req.body;
+  var psw = uuidv5(password, uuidv5.DNS);
+  console.log(psw);
+  var selectSQL = `select * from t_user where account = '${account}' and pwd = '${psw}' limit 1`;
+  var answer = -1;
+  conf.query(selectSQL,function(err,result){
+//	  console.log(result);
+	//	console.log(answer);
+		if(result!=''&&result){
+			answer = result[0];
+			answer=JSON.stringify(answer);
+		}
+		//console.log(answer);
+		  res.json({res:answer});
+    });*/
+	
+	res.render('pc/login',{hidden:2});
+});
+
+router.get('/register', function(req, res, next) {
+ /* var {account,password}=req.body;
+  var psw = uuidv5(password, uuidv5.DNS);
+  console.log(psw);
+  var selectSQL = `select * from t_user where account = '${account}' and pwd = '${psw}' limit 1`;
+  var answer = -1;
+  conf.query(selectSQL,function(err,result){
+//	  console.log(result);
+	//	console.log(answer);
+		if(result!=''&&result){
+			answer = result[0];
+			answer=JSON.stringify(answer);
+		}
+		//console.log(answer);
+		  res.json({res:answer});
+    });*/
+	
+	res.render('pc/register');
+});
+// 用户登录接口 保存进session 前台获取保存 对比
 router.post('/login', function(req, res, next) {
   var {account,password}=req.body;
   var psw = uuidv5(password, uuidv5.DNS);
@@ -189,24 +243,24 @@ router.post('/login', function(req, res, next) {
 
 //获取订单信息
 router.get('/GetOrder',(req, res, next)=>{
+	
 	var {id} = req.query;
 	// 提交订单
-	var InsertOrder = `select t_goods.title,t_size_accessories.size_name,t_goodssize_price.url,t_order.amount,t_order.createtime,t_goodssize_price.price,t_order_details.count from t_order 
+	var Order = `select t_goods.title,t_size_accessories.size_name,t_goodssize_price.url,t_order.amount,t_order.createtime,t_goodssize_price.price,t_order_details.count from t_order 
 						left join t_order_details on t_order.id = t_order_details.order_id
 						left join t_goodssize_price on t_goodssize_price.id = t_order_details.SizePrice_id
 						left join t_goods on t_goods.id = t_goodssize_price.goods_id
 						left join t_size_accessories on t_size_accessories.id = t_goodssize_price.size_id
 						where t_order.id in(${id})`;
-	
-		conf.query(InsertOrder,function(err,result){
+		 conf.query(Order,function(err,result){
 			if(result!=''&&result){
-					res.json(result)
+				 res.json(result);
 			}
-      });
+		});
+		
 });
 //获取订单列表
 router.get('/GetOrderList',(req, res, next)=>{
-	
 	var  {uid,status} = req.query;
 	if(uid!=undefined&&status!=undefined){
 		var orderList = `SELECT * from t_order WHERE uid = ${uid}  and status = ${status}`;
@@ -326,7 +380,16 @@ router.get('/banners', function(req, res, next) {
 
 
 router.get('/', function(req, res, next) {
-  res.sendFile(`${process.cwd()}/public/index.html`, {title:'冰旗库'});
+	var deviceAgent = req.headers["user-agent"].toLowerCase();
+    var agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
+    if(agentID){
+        res.sendFile(`${process.cwd()}/public/index.html`, {title:'冰旗库'});
+    }else{
+		
+		
+		
+        res.render('pc/index', { hidden: 1});
+    }
 });
 
 

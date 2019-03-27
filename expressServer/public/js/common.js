@@ -1,4 +1,28 @@
-
+var Common = new Object({
+	Time: function(DateTime){
+		var d = new Date(DateTime)
+		var Minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+		var Seconds = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
+		var time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + Minutes + ':' + Seconds
+		return time;
+	},
+	//默认src给loading图片，data-img给实际图片 图片加载完显示
+	loadingImg: function setImg(clssName) {
+				var ImgCount = document.querySelectorAll(clssName).length;
+				var j = 0;
+				for (var i = 0; i < ImgCount; i++) {
+					var _img = document.querySelectorAll(clssName)[i].getAttribute("data-img");
+					var img = new Image();
+					img.src = _img;
+					img.onload = function () {
+						var img1 = document.querySelectorAll(clssName)[j];//.src= arr[0];
+						img1.src = img1.getAttribute("data-img");
+						j++;
+					};
+				}
+}
+	
+});
 //为空返回true
 function isnull(str) {
     var reg = /(^\s*)|(\s*$)/g;
@@ -15,21 +39,7 @@ function getQueryString(name) {
     }
     return null;
 }
-//默认src给loading图片，data-img给实际图片 图片加载完显示
-function setImg(clssName) {
-    var ImgCount = document.querySelectorAll(clssName).length;
-    var j = 0;
-    for (var i = 0; i < ImgCount; i++) {
-        var _img = document.querySelectorAll(clssName)[i].getAttribute("data-img");
-        var img = new Image();
-        img.src = _img;
-        img.onload = function () {
-            var img1 = document.querySelectorAll(clssName)[j];//.src= arr[0];
-            img1.src = img1.getAttribute("data-img");
-            j++;
-        };
-    }
-}
+
 
 //阴影提示框
 function toast(content) {
