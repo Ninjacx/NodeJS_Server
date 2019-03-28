@@ -35,19 +35,30 @@
 	       display:none;
 	}
   </style>
-  
+
 <body>
   <div id="header">
+
 	<ul>
-		<li class="<%if(hidden == 1){%> hidden <%}%>"><a href="/">首页</a></li>
-		<li class="<%if(hidden == 2){%> hidden <%}%>"><a href="/login">请登陆</a></li>
-		<li><a href="/login">免费注册</a></li>
+
+	  	<%if(token){%>
+				<li><img width="35px" height="35px"  src="/images/user-icon.png" alt=""></li>
+				<li>name</li><li><form id="logout" action="logout" method="post"/></li>
+
+				<li data-toggle="modal" data-target="#Modal">退出</li>
+		  <%}else{%>
+				<li class="<%if(hidden == 2){%> hidden <%}%>"><a href="/login">请登陆</a></li>
+				<li><a href="/login">免费注册</a></li>
+			<%}%>
+			<li class="<%if(hidden == 1){%> hidden <%}%>"><a href="/">首页</a></li>
 	</ul>
+
 	<ul>
 		<li>我的物品</li>
 		<li>购物车</li>
 		<li>收藏夹</li>
-		<li>联系客服</li>
+		<li>联系我们</li>
 	</ul>
   </div>
+	<%-include("toastModel.html",{"content":"是否确认退出"})%>
 </body>

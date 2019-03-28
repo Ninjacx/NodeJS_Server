@@ -23,9 +23,14 @@
 			top:20px;
 			width:100%;
 		}
+
+    /**/
+    .modal-dialog{
+      width: 500px;
+    }
 	</style>
 <body>
-	<%-include("header.html",{"hidden":1})%>
+	<%-include("header.html",{"hidden":1,"a": 2})%>
 		<div>
 		  <div id="Carousel" class="carousel slide banner-main">
 			<!-- 轮播（Carousel）指标 -->
@@ -87,7 +92,11 @@
 
 			<!-- 底部固定区域 -->
 		</div>
+
+
+
 <% include footer.html %>
+
 <script>
 	var HTMLLIST = function(goods_id,ff){
 		$.get('/getGoodsList?limit=20',{goods_id: goods_id},function(result){
@@ -117,6 +126,11 @@
 
 			});
 	}
+
+  $('.Model-click').click(function(){
+    $('#logout').submit();
+
+  });
 
 		$(function() {
 			  HTMLLIST(0,function(res){

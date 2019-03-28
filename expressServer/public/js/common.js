@@ -7,7 +7,7 @@ var Common = new Object({
 		return time;
 	},
 	//默认src给loading图片，data-img给实际图片 图片加载完显示
-	loadingImg: function setImg(clssName) {
+	loadingImg: function(clssName) {
 				var ImgCount = document.querySelectorAll(clssName).length;
 				var j = 0;
 				for (var i = 0; i < ImgCount; i++) {
@@ -20,8 +20,19 @@ var Common = new Object({
 						j++;
 					};
 				}
+},
+toast: function(content) {
+	var toast = $('<div style="z-index:9999;position:fixed;top: 50%; left: 0; bottom: 0; right: 0;margin: auto;width:auto;'
+			+ 'text-align:center;color:white;"><div style="font-size: 18px"><span style="padding:11px 20px;border-radius:10px;background:rgba(0,0,0,0.6);">' + content + '</span></div></div>');
+	$('body').append(toast);
+	setTimeout(function () {
+			toast.remove();
+	}, 2600);
+},
+isNull: function(text){
+	return Boolean($.trim(text));
 }
-	
+
 });
 //为空返回true
 function isnull(str) {
@@ -41,15 +52,8 @@ function getQueryString(name) {
 }
 
 
-//阴影提示框
-function toast(content) {
-    var toast = $('<div style="z-index:9999;position:fixed;top: 50%; left: 0; bottom: 0; right: 0;margin: auto;width:auto;'
-        + 'text-align:center;color:white;"><div style="font-size: 18px"><span style="padding:11px 20px;border-radius:10px;background:rgba(0,0,0,0.6);">' + content + '</span></div></div>');
-    $('body').append(toast);
-    setTimeout(function () {
-        toast.remove();
-    }, 2600);
-}
+
+
 //加载等待框
 function setLoading(){
       var load = $('<div class="loading_outer">'

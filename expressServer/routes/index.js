@@ -185,32 +185,46 @@ router.post('/regist', function(req, res, next) {
 
 router.get('/login', function(req, res, next) {
 	// res.locals.token=1003 ;//req.session.user;
-	res.render('pc/login',{hidden:2});
+	console.log(req.session.token);
+	// 防止重复登陆
+	if(req.session.token){
+		res.render('pc/index', { hidden: 1});
+	}else{
+		res.render('pc/login',{hidden:2});
+	}
 });
-
+//
 router.get('/register', function(req, res, next) {
 
 	res.render('pc/register');
 });
 // 用户登录接口 保存进session 前台获取保存 对比
 router.post('/login', function(req, res, next) {
-	// console.log(req.session.token);
   var {account,password}=req.body;
   var psw = uuidv5(password, uuidv5.DNS);
-  console.log(psw);
   var selectSQL = `select * from t_user where account = '${account}' and pwd = '${psw}' limit 1`;
-  var answer = -1;
+
+
+  // var answer = -1;
   conf.query(selectSQL,function(err,result){
 			if(result!=''&&result){
 				var token = uuidv1(); // 登录成功token
-				res.locals.token = token;
-				res.json({res: 200,token: token,msg: "登录成功"});
+				req.session.token = token;
+				// 将token 保存到表中，以便之后验证
+				var InsertToken = `INSERT INTO t_token_log(uid,token,createtime)VALUES(${result[0].id},"${token}",now())`;
+				conf.query(InsertToken,function(){});
+				res.json({code: 200,msg: "登录成功"});
 			}else{
-				res.json({res:-1,msg: "账号或密码错误"});
+				res.json({code:-1,msg: "账号或密码错误"});
 			}
     });
 });
 
+// 退出
+router.post('/logout', function(req, res, next) {
+	req.session.token = null;
+	res.redirect('/');
+})
 //获取订单信息
 router.get('/GetOrder',(req, res, next)=>{
 
@@ -335,16 +349,16 @@ router.post('/AuthResult', function(req, res, next) {
    console.log(req.body);
 });
 //登录页面
-router.get('/login', function(req, res, next){
-var data='';
-    res.render('logo/login', { title: "" ,"b":false,user:data});
-});
-router.get('/doc', function(req, res, next) {
-  res.render('document/doc');
-});
-router.get('/banners', function(req, res, next) {
-  res.render('index2', { title: '咕噜噜/banners' });
-});
+// router.get('/login', function(req, res, next){
+// var data='';
+//     res.render('logo/login', { title: "" ,"b":false,user:data});
+// });
+// router.get('/doc', function(req, res, next) {
+//   res.render('document/doc');
+// });
+// router.get('/banners', function(req, res, next) {
+//   res.render('index2', { title: '咕噜噜/banners' });
+// });
 
 
 
@@ -353,11 +367,13 @@ router.get('/', function(req, res, next) {
 	var deviceAgent = req.headers["user-agent"].toLowerCase();
     var agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
     if(agentID){
-        res.sendFile(`${process.cwd()}/public/index.html`, {title:'冰旗库'});
+        res.sendFile(`${process.cwd()}/public/index.html`, {title:''});
     }else{
 
 
-
+				if(req.session.token){
+					// 根据token查询用户表sql t_user
+				}
         res.render('pc/index', { hidden: 1});
     }
 });

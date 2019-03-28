@@ -80,3 +80,4 @@ a:hover{
 .bgwhite{
   background: white;
 }
+input[type=button]:active{opacity: 0.6;}

@@ -35,7 +35,18 @@ app.use(compression({ threshold: 9 }));//GZIP
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
+app.use(session({
+       secret: 'bqk',
+       name: 'bqk',   //这里的name值得是cookie的name，默认cookie的name是：connect.sid
+       cookie: {maxAge: 1000 * 60 * 60 * 24},  //设置maxAge是80000ms，即80s后session和相应的cookie失效过期 1天 ，24小时, // 设置 session 的有效时间，单位毫秒
+       resave: false,
+       saveUninitialized: true,
+ }));
 
+app.use(function(req, res, next){
+    res.locals.token = req.session.token;
+    next();
+});
 
 app.use('/', indexRouter);
 app.use('/car', carRouter);//购物车
@@ -60,18 +71,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.use(session({
-    secret :  'secret', // 对session id 相关的cookie 进行签名
-    resave : true,
-    saveUninitialized: false, // 是否保存未初始化的会话
-    cookie : {
-        maxAge : 1000 * 60 * 3, // 设置 session 的有效时间，单位毫秒
-    },
-}));
 
-app.use(function(req, res, next){
-    res.locals.token = req.session.token;
-    next();
-});
 
 module.exports = app;
