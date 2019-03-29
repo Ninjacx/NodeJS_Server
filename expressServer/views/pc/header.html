@@ -43,7 +43,7 @@
 
 	  	<%if(token){%>
 				<li><img width="35px" height="35px"  src="/images/user-icon.png" alt=""></li>
-				<li>name</li><li><form id="logout" action="logout" method="post"/></li>
+				<li><%=nickName %></li><li><form id="logout" action="logout" method="post"/></li>
 
 				<li data-toggle="modal" data-target="#Modal">退出</li>
 		  <%}else{%>

@@ -210,6 +210,7 @@ router.post('/login', function(req, res, next) {
 			if(result!=''&&result){
 				var token = uuidv1(); // 登录成功token
 				req.session.token = token;
+				req.session.nickName = result[0].nick_name;
 				// 将token 保存到表中，以便之后验证
 				var InsertToken = `INSERT INTO t_token_log(uid,token,createtime)VALUES(${result[0].id},"${token}",now())`;
 				conf.query(InsertToken,function(){});
@@ -370,9 +371,13 @@ router.get('/', function(req, res, next) {
         res.sendFile(`${process.cwd()}/public/index.html`, {title:''});
     }else{
 
-
 				if(req.session.token){
 					// 根据token查询用户表sql t_user
+					// var UserInfo = `select nick_name from t_token_log left join t_user on t_user.id=t_token_log.uid where t_token_log.token="${req.session.token}" and t_user.is_del=0`;
+					// conf.query(UserInfo,function(err,result){
+					// 	req.session.nickName = result[0].nick_name;
+					// 	console.log(req.session.nickName);
+			    // });
 				}
         res.render('pc/index', { hidden: 1});
     }
