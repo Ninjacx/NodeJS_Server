@@ -196,7 +196,7 @@ router.get('/login', function(req, res, next) {
 //
 router.get('/register', function(req, res, next) {
 
-	res.render('pc/register');
+	res.render('pc/register',{ hidden: 1});
 });
 // 用户登录接口 保存进session 前台获取保存 对比
 router.post('/login', function(req, res, next) {

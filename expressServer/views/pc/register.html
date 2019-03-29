@@ -1,0 +1,179 @@
+﻿
+<!DOCTYPE html>
+<html>
+
+<% include common.html %>
+<style>
+	.w-e-text-container{
+		min-height:500px;
+	}
+	.login-tit>.borders{
+		border: 1px solid #edbc33;
+		width: 100px;
+		transition: .3s ease;
+		margin-top: 10px;
+	}
+	.login-type{
+		cursor:pointer;
+	}
+	#issueSubmit{
+		width: 20%;
+	}
+	.issue-outer{
+		position:relative;
+		height: 480px;
+		background-image:url('/images/login.png');
+	}
+	.issue-main{
+		width:880px;
+		margin:0 auto;
+	}
+	.page-header{
+		border-bottom: 5px solid #ffbf09;
+	}
+	.login-box {
+		width: 340px;
+		min-height: 372px;
+		background: #fff;
+		position: absolute;
+		top: 13%;
+		right: 0;
+		border-radius: 10px;
+		padding: 0px 45px 25px;
+	}
+	.loginBallBoxes .riceOil .getterCode {
+    width: 110px;
+    height: 42px;
+    text-align: center;
+    font-size: 14px;
+    color: #1E9BF5;
+    background: #f2f2f2;
+    line-height: 42px;
+    float: right;
+    margin-right: 22px;
+}
+.login-btn {
+		border:0;
+    width: 100%;
+    /*height: 43px;*/
+    line-height: 43px;
+    margin-top: 20px;
+    border-radius: 4px;
+    background: #e9be11;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+		outline: none;
+}
+.translateX150{
+	transform: translateX(153px);
+}
+
+.box-hidden{
+	display:none;
+}
+
+</style>
+
+<body>
+	<%-include("header.html",{hidden:1})%>
+<div>
+	<div class="marginTop20">
+		<div class="issue-outer">
+		 <div class="issue-main">
+		  <div class="login-box clearfix ">
+			<h3 class="login-tit">
+				<span class="login-type" type="1" >账号注册</span>
+				<span class="login-type floatRight">手机注册</span>
+				<div class="borders" ></div>
+			</h3>
+				<!--登录onsubmit="return false"-->
+				<form onsubmit="return false">
+					<div class="loginBallBoxes box-login">
+							<div class="marginTop20">
+								<input type="text" name="account"  placeholder="请输入账号" class="form-control msg_phone err" >
+							</div>
+							<div class="marginTop20">
+								<input type="password" name="password"  placeholder="请输入密码" class="form-control msg_phone err"  >
+							</div>
+							<div class="marginTop20">
+								<input type="password" name="password"  placeholder="再次输入密码" class="form-control msg_phone err"  >
+							</div>
+					</div>
+					<div class="loginBallBoxes box-phone box-hidden" >
+							<div class="marginTop20">
+								<input type="text" name="" id="" placeholder="请输入手机号" class="form-control msg_phone err">
+							</div>
+							<div class="riceOil marginTop20" style=" width: 100%;">
+								<div class="phonerCode_div" style="display: table-cell;">
+									<input type="text" class="inputText2 err form-control" name="phonerCodeName" id="phonerCode" placeholder="请输入验证码">
+								</div>
+								<div style="display: table-cell; padding-left: 10px;"><input type="button" value="获取验证码"></div>
+								<input type="hidden" id="scretPassCode">
+							</div>
+					</div>
+					<div>
+						<input id="submitPhoner" name="submitPhoner" type="button" class="login-btn  " alt="登录" value="登录">
+					</div>
+				</form>
+
+		<div class="marginTop20">立即登陆</div>
+	</div>
+			</div>
+
+	</div>
+    <!-- 底部固定区域 -->
+	<% include footer.html %>
+</div>
+
+<script>
+		void function(){
+			$('.login-box').css('right',$('body').width()/100+'%');
+		}()
+
+		$(window).resize(function () {
+			$('.login-box').css('right',$('body').width()/100+'%');
+		})
+
+	// 登陆切换
+	$('.login-type').click(function(){
+		if($(this).attr('type')){
+			// 账号登陆
+			$('.borders').removeClass('translateX150');
+			$('.box-login').removeClass('box-hidden');
+			$('.box-phone').addClass('box-hidden');
+		}else{
+			// 手机登录
+			$('.borders').addClass('translateX150');
+			$('.box-login').addClass('box-hidden');
+			$('.box-phone').removeClass('box-hidden');
+		}
+	});
+	// 登录
+	$('#submitPhoner').click(function(){
+		var account = $('[name=account]').val();
+		var password = $('[name=password]').val();
+		if(!Common.isNull(account)){
+			console.log(Common.isNull(account));
+				Common.toast('请填写账号');
+				return false;
+		}if(!Common.isNull(password)){
+				Common.toast('请填写密码');
+				return false;
+		}
+		var param = {account: account,password: password};
+		$.post('/login',param,function(res){
+			console.log(res);
+			if(res.code==-1){
+				Common.toast(res.msg);
+			}else{
+				location.href = "/";
+			}
+			// location.href = "";
+		});
+	});
+</script>
+</body>
+</html>
