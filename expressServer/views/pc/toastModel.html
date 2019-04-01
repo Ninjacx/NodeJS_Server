@@ -7,13 +7,18 @@
 						aria-hidden="true">×
 				</button>
 				<h4 class="modal-title" id="myModalLabel">
-					<span>操作确认</span>
-          <img style="vertical-align: bottom;" width="35" src="/images/smile.png" alt="">
+					<span>提示</span>
+
 				</h4>
 			</div>
-			<div class="modal-body Model-txt">
-				<%= content%>
-				<input class="Model-type" type="hidden" value="1" >
+			<div class="modal-body Model-txt fs16">
+			 <div  class="tableCell">
+			 	<img width="38" src="/images/smile.png" alt="">
+			 </div>
+				<div class="tableCell">
+						<%= content%>？
+				</div>
+				<input class="Model-type" type="hidden" value="1">
 			</div>
 			<div class="modal-footer">
         <button type="button" class="btn btn-default Model-click">确认</button>
@@ -22,3 +27,8 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script type="text/javascript">
+	$('.Model-click').click(function(){
+    $('#logout').submit();
+  });
+</script>

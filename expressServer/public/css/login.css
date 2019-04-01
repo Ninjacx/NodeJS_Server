@@ -1,0 +1,70 @@
+.w-e-text-container{
+	min-height:500px;
+}
+.login-tit>.borders{
+	border: 1px solid #edbc33;
+	width: 100px;
+	transition: .3s ease;
+	margin-top: 10px;
+}
+.login-type{
+	cursor:pointer;
+}
+#issueSubmit{
+	width: 20%;
+}
+.issue-outer{
+	position:relative;
+	height: 480px;
+	background-image:url('/images/login.png');
+}
+.issue-main{
+	width:880px;
+	margin:0 auto;
+}
+.page-header{
+	border-bottom: 5px solid #ffbf09;
+}
+.login-box {
+	width: 340px;
+	min-height: 372px;
+	background: #fff;
+	position: absolute;
+	top: 13%;
+	right: 0;
+	border-radius: 10px;
+	padding: 0px 45px 25px;
+}
+.loginBallBoxes .riceOil .getterCode {
+	width: 110px;
+	height: 42px;
+	text-align: center;
+	font-size: 14px;
+	color: #1E9BF5;
+	background: #f2f2f2;
+	line-height: 42px;
+	float: right;
+	margin-right: 22px;
+}
+.login-btn {
+	border:0;
+	width: 100%;
+	/*height: 43px;*/
+	line-height: 43px;
+	margin-top: 20px;
+	border-radius: 4px;
+	background: #e9be11;
+	color: #fff;
+	font-size: 18px;
+	text-align: center;
+	cursor: pointer;
+	display: inline-block;
+	outline: none;
+}
+.translateX150{
+transform: translateX(153px);
+}
+
+.box-hidden{
+display:none;
+}

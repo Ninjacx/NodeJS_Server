@@ -9,6 +9,23 @@ var router = express.Router();
 var app = express();
 const uuidv5 = require('uuid/v5');
 const uuidv1 = require('uuid/v1');
+
+/*验证登录*/
+const AuthMiddleware = require('./checklogin');
+
+
+router.get('/login', function(req, res, next) {
+	// 防止重复登陆
+	if(req.session.token){
+		res.render('pc/index', { hidden: 1});
+	}else{
+		res.render('pc/login',{hidden:2});
+	}
+});
+
+//获取用户列表
+// router.use(checkLogin);
+
 //const NOWDate = new Date();
 // app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -20,11 +37,14 @@ const uuidv1 = require('uuid/v1');
 //   });
 //   next();
 // });
-
-
+//
+// exports.isLogin= function(req, res){
+// 	res.redirect('/login');
+// 	next();
+// };
 
 //PC
-/*router.get('/', function(req, res, next){
+/*router.get(, function(req, res, next){
     var selectGoods = 'select * from t_goods limit 4';
     var selectClassify = 'select * from t_classify limit 4';
     var resGoods = conf.quertPromise(selectGoods);
@@ -51,8 +71,6 @@ const uuidv1 = require('uuid/v1');
 router.get('/getMember',(req, res, next)=>{
 	var{limit,offset,searchType,searchVal} = req.query;
 	var search = 'where ';
-	console.log(searchType);
-	console.log(searchVal);
 	if(searchType==1&&searchVal){
 		search+='mobile like "%'+searchVal+'%"';
 	}else if(searchType==2&&searchVal){
@@ -62,7 +80,6 @@ router.get('/getMember',(req, res, next)=>{
 	}else{
 		search = '';
 	}
-	console.log(search);
 	var PageNum = limit*offset;
     var selectSQL = `select * from t_member ${search} limit ${limit} offset ${PageNum}`;
 	var count = `select count(id) as total from t_member ${search}` ;
@@ -81,7 +98,6 @@ router.get('/GetClassify',(req, res, next)=>{
     var selectSQL = 'select * from t_classify limit 4';
     conf.query(selectSQL,function(err,result){
             var result=JSON.stringify(result);
-            console.log(result);
         res.json({res:result});
       });
 });
@@ -145,57 +161,51 @@ router.get('/getGoodsList',(req, res, next)=>{
 });
 
 //首页产品展示
-router.get('/issue',(req, res, next)=>{
-    // console.log(req.query.goods_id);
+router.get('/issue',AuthMiddleware,(req, res, next)=>{
+
 	// count 为分页数大于整数则多1
     /*var selectSQL = `SELECT *,ceil((select COUNT(id) from t_goods)/20)as count from t_goods WHERE is_del = 0 LIMIT ${req.query.limit} OFFSET ${req.query.goods_id}`;
       conf.query(selectSQL,function(err,result){
             var result=JSON.stringify(result);
         res.json({res:result});
       });*/
-	  res.render('pc/issue', { hidden: ""});
+			// if(req.session.token){
+				res.render('pc/issue', { hidden: ""});
 });
 
 
 router.post('/regist', function(req, res, next) {
-
-
-  var {email,phone,password}=req.body;
+  var {phone,password}=req.body;
   var psw = uuidv5(password, uuidv5.DNS);
+	var token = uuidv1();
   var isHave_user  = `select id from t_user where account = ${phone} and is_del = 0 limit 1`;
-  var selectSQL = `INSERT INTO t_user(account,pwd,phone,token,createtime)VALUES(${phone},'${psw}',${phone},'${uuidv1()}',now())`
+  var addUser = `INSERT INTO t_user(account,pwd,nick_name,phone,createtime)VALUES(${phone},'${psw}','圈圈',${phone},now())`;
+	// var addLoginToken = `INSERT INTO t_token_log(uid,token,createtime)VALUES(${result[0].id},"${token}",now())`;
   // 1.查询是否注册过
-  conf.query(isHave_user,function(err,result){
+  conf.query(isHave_user,function(err,result) {
 	  if(result!=''){
 		  res.json('-1');
 	  }else{
 		  // 2. 用户注册添加
-		  conf.query(selectSQL,function(err,resID){
-			  if(resID.insertId){
+		  conf.query(addUser,function(err,userRes){
+			// 	// console.log(userRes);
+			  if(userRes){
+					var addLoginToken = `INSERT INTO t_token_log(uid,token,createtime)VALUES(${userRes.insertId},"${token}",now())`;
+					console.log(token);
 				  // 2. 返回用户注册信息
-				  conf.query(`select * from t_user where id = ${resID.insertId} and is_del = 0 limit 1`,function(err,resUser){
-					res.json(resUser);
-				})
-
+				  conf.query(addLoginToken,function(err,resUser){
+							req.session.token = token;
+							res.json(resUser);
+					})
 			  }
 		  });
 	  }
   });
 });
 
-router.get('/login', function(req, res, next) {
-	// res.locals.token=1003 ;//req.session.user;
-	console.log(req.session.token);
-	// 防止重复登陆
-	if(req.session.token){
-		res.render('pc/index', { hidden: 1});
-	}else{
-		res.render('pc/login',{hidden:2});
-	}
-});
+
 //
 router.get('/register', function(req, res, next) {
-
 	res.render('pc/register',{ hidden: 1});
 });
 // 用户登录接口 保存进session 前台获取保存 对比
@@ -211,10 +221,12 @@ router.post('/login', function(req, res, next) {
 				var token = uuidv1(); // 登录成功token
 				req.session.token = token;
 				req.session.nickName = result[0].nick_name;
+				var page = req.session.page; // 记录上次点击的页面登录成功后跳转
 				// 将token 保存到表中，以便之后验证
 				var InsertToken = `INSERT INTO t_token_log(uid,token,createtime)VALUES(${result[0].id},"${token}",now())`;
 				conf.query(InsertToken,function(){});
-				res.json({code: 200,msg: "登录成功"});
+				// console.log(page);
+				res.json({code: 200,msg: "登录成功",page: page==undefined?'/':page});
 			}else{
 				res.json({code:-1,msg: "账号或密码错误"});
 			}
@@ -224,7 +236,9 @@ router.post('/login', function(req, res, next) {
 // 退出
 router.post('/logout', function(req, res, next) {
 	req.session.token = null;
-	res.redirect('/');
+
+	// location.reload();
+	res.redirect(req.session.page);
 })
 //获取订单信息
 router.get('/GetOrder',(req, res, next)=>{
@@ -370,22 +384,13 @@ router.get('/', function(req, res, next) {
     if(agentID){
         res.sendFile(`${process.cwd()}/public/index.html`, {title:''});
     }else{
-
-				if(req.session.token){
-					// 根据token查询用户表sql t_user
-					// var UserInfo = `select nick_name from t_token_log left join t_user on t_user.id=t_token_log.uid where t_token_log.token="${req.session.token}" and t_user.is_del=0`;
-					// conf.query(UserInfo,function(err,result){
-					// 	req.session.nickName = result[0].nick_name;
-					// 	console.log(req.session.nickName);
-			    // });
-				}
+				req.session.page = '/';
         res.render('pc/index', { hidden: 1});
     }
 });
 
 
 router.get('/b', function(req, res, next) {
-  console.log();
   res.sendFile(`${process.cwd()}/public/html/login.html`, {title:'index'});
   // res.jsonp({"bbb":123});
 });

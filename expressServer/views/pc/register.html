@@ -41,7 +41,7 @@
 		border-radius: 10px;
 		padding: 0px 45px 25px;
 	}
-	.loginBallBoxes .riceOil .getterCode {
+	.registerBallBoxes .riceOil .getterCode {
     width: 110px;
     height: 42px;
     text-align: center;
@@ -91,7 +91,7 @@
 			</h3>
 				<!--登录onsubmit="return false"-->
 				<form onsubmit="return false">
-					<div class="loginBallBoxes box-login">
+					<div class="registerBallBoxes box-login">
 							<div class="marginTop20">
 								<input type="text" name="account"  placeholder="请输入账号" class="form-control msg_phone err" >
 							</div>
@@ -99,12 +99,12 @@
 								<input type="password" name="password"  placeholder="请输入密码" class="form-control msg_phone err"  >
 							</div>
 							<div class="marginTop20">
-								<input type="password" name="password"  placeholder="再次输入密码" class="form-control msg_phone err"  >
+								<input type="password" name="password2" placeholder="再次输入密码" class="form-control msg_phone err"  >
 							</div>
 					</div>
-					<div class="loginBallBoxes box-phone box-hidden" >
+					<div class="registerBallBoxes box-phone box-hidden" >
 							<div class="marginTop20">
-								<input type="text" name="" id="" placeholder="请输入手机号" class="form-control msg_phone err">
+								<input type="text"    placeholder="请输入手机号" class="form-control msg_phone err">
 							</div>
 							<div class="riceOil marginTop20" style=" width: 100%;">
 								<div class="phonerCode_div" style="display: table-cell;">
@@ -115,11 +115,11 @@
 							</div>
 					</div>
 					<div>
-						<input id="submitPhoner" name="submitPhoner" type="button" class="login-btn  " alt="登录" value="登录">
+						<input id="submitPhoner" name="submitPhoner" type="button" class="login-btn  " alt="注册" value="注册">
 					</div>
 				</form>
 
-		<div class="marginTop20">立即登陆</div>
+		<div class="marginTop20"><a href="/login">立即登陆</a></div>
 	</div>
 			</div>
 
@@ -155,16 +155,20 @@
 	$('#submitPhoner').click(function(){
 		var account = $('[name=account]').val();
 		var password = $('[name=password]').val();
+		var password2 = $('[name=password2]').val();
 		if(!Common.isNull(account)){
 			console.log(Common.isNull(account));
 				Common.toast('请填写账号');
 				return false;
-		}if(!Common.isNull(password)){
+		}if(!Common.isNull(password)||!Common.isNull(password2)){
 				Common.toast('请填写密码');
 				return false;
+		}if(password!=password2){
+				Common.toast('两次密码填写不一致');
+				return false;
 		}
-		var param = {account: account,password: password};
-		$.post('/login',param,function(res){
+		var param = {phone: account,password: password};
+		$.post('/regist',param,function(res){
 			console.log(res);
 			if(res.code==-1){
 				Common.toast(res.msg);

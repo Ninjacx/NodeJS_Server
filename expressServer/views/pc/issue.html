@@ -10,10 +10,10 @@
 		min-height:500px;
 	}
 	#issueSubmit{
-		width: 20%;
+		/* width: 20%; */
 	}
 	.issue-main{
-		width:880px;
+		width:1100px;
 		margin:0 auto;
 	}
 	.page-header{
@@ -65,8 +65,8 @@
 		 <label  class=" control-label"><span class="red">*</span>详细地址</label>
 		  <input type="text" class="form-control" id="inputEmail3" placeholder="请填写详细地址">
 	  </div>
-		
-	  
+
+
 	  <div class="marginTop20">
 		<label  class=" control-label"><span class="red">*</span>商品首页图</label>
 		 <input type="file" class="form-control-file" id="goodsFile">
@@ -79,7 +79,7 @@
 			<div></div>
 		</div>
 		<div class=" marginTop20">
-			<a id="issueSubmit" class="btn btn-default" role="button">提交</a>
+			<a id="issueSubmit" class="btn btn-default btn-lg" role="button">提交</a>
 		</div>
 	</div>
     <!-- 底部固定区域 -->
@@ -90,7 +90,7 @@
 	//$('#goodsFile').get(0).files[0]
 window.onload = function(){
   $('.w-e-text-container').css('height',window.innerHeight+'px !important');
-	
+
   var E = window.wangEditor
   var editor = new E('#div1')
 

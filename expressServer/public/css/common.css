@@ -80,4 +80,8 @@ a:hover{
 .bgwhite{
   background: white;
 }
+.tableCell{
+	display: table-cell;
+	vertical-align: middle;
+}
 input[type=button]:active{opacity: 0.6;}

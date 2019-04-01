@@ -84,7 +84,7 @@
 		<div class="issue-outer">
 		 <div class="issue-main">
 		  <div class="login-box clearfix ">
-			<h3 class="login-tit">											
+			<h3 class="login-tit">
 				<span class="login-type" type="1" >账号登录</span>
 				<span class="login-type floatRight">手机登录</span>
 				<div class="borders" ></div>
@@ -117,7 +117,7 @@
 					</div>
 				</form>
 
-		<div class="marginTop20">立即注册</div>
+		<div class="marginTop20"><a href="/register">立即注册</a></div>
 	</div>
 			</div>
 
@@ -167,9 +167,8 @@
 			if(res.code==-1){
 				Common.toast(res.msg);
 			}else{
-				location.href = "/";
+				location.href = res.page;
 			}
-			// location.href = "";
 		});
 	});
 </script>
