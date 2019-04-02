@@ -78,10 +78,17 @@ a:hover{
 	float:right;
 }
 .bgwhite{
-  background: white;
+  background: #FFFFFF;
 }
 .tableCell{
 	display: table-cell;
 	vertical-align: middle;
 }
+.colorWhite{
+		color: #FFFFFF;
+}
+textarea{
+	resize: none;
+}
+
 input[type=button]:active{opacity: 0.6;}

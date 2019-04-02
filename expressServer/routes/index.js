@@ -173,13 +173,17 @@ router.get('/issue',AuthMiddleware,(req, res, next)=>{
 				res.render('pc/issue', { hidden: ""});
 });
 
+router.get('/aboutUs', function(req, res, next) {
+	res.render('pc/aboutUs',{hidden: ''});
+});
 
 router.post('/regist', function(req, res, next) {
   var {phone,password}=req.body;
   var psw = uuidv5(password, uuidv5.DNS);
+	var nick_name = '圈圈';
 	var token = uuidv1();
   var isHave_user  = `select id from t_user where account = ${phone} and is_del = 0 limit 1`;
-  var addUser = `INSERT INTO t_user(account,pwd,nick_name,phone,createtime)VALUES(${phone},'${psw}','圈圈',${phone},now())`;
+  var addUser = `INSERT INTO t_user(account,pwd,nick_name,phone,createtime)VALUES(${phone},'${psw}','${nick_name}',${phone},now())`;
 	// var addLoginToken = `INSERT INTO t_token_log(uid,token,createtime)VALUES(${result[0].id},"${token}",now())`;
   // 1.查询是否注册过
   conf.query(isHave_user,function(err,result) {
@@ -195,6 +199,7 @@ router.post('/regist', function(req, res, next) {
 				  // 2. 返回用户注册信息
 				  conf.query(addLoginToken,function(err,resUser){
 							req.session.token = token;
+							req.session.nickName = nick_name;
 							res.json(resUser);
 					})
 			  }
