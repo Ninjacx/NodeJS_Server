@@ -33,11 +33,21 @@ a:hover{
 .Tcenter{
   text-align: center;
 }
+.TRight{
+  text-align: right;
+}
+.height34{
+		height: 34px;
+    line-height: 34px;
+}
 .fwBold{
   font-weight: bold;
 }
 .marginLeft10{
   margin-left:10px;
+}
+.marginLeft20{
+  margin-left:20px;
 }
 .marginRight10{
   margin-left: 10px;

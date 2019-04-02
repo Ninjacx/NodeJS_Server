@@ -19,6 +19,9 @@
 	.page-header{
 		border-bottom: 5px solid #ffbf09;
 	}
+	.addrWidth{
+		width: 330px;
+	}
 </style>
 <body>
 <% include header.html %>
@@ -26,8 +29,17 @@
   <div class="issue-main">
   <h3 id="pagination" class="page-header">发布商品</h3>
 	<form class="form-horizontal">
-	  <div>
-		<label  class=" control-label"><span class="red">*</span>商品名</label>
+		<div class="marginTop20">
+			 <label  class=" control-label"><span class="red">*</span>商品状态</label>
+			 <select class="form-control optionWidth">
+				  <option>请选择</option>
+			 	  <option>全新</option>
+			  	<option>闲置</option>
+			 </select>
+	  </div>
+
+	  <div class="marginTop20">
+	   	<label  class=" control-label"><span class="red">*</span>商品名称</label>
 		  <input type="text" class="form-control" id="inputEmail3" placeholder="请填写商品名">
 	  </div>
 	<div class="marginTop20">
@@ -36,7 +48,7 @@
 	  </div>
 	  <div class="marginTop20">
 		<label  class=" control-label"><span class="red">*</span>商品概述</label>
-		  <input type="text" class="form-control" id="inputEmail3" placeholder="请简述商品展示在首页">
+		  <input type="text" class="form-control" id="inputEmail3" placeholder="请简述商品将展示在首页">
 	  </div>
 	  <div class="marginTop20">
 		<label  class=" control-label">商品外部链接</label>
@@ -50,21 +62,20 @@
 		 <label  class=" control-label"><span class="red">*</span>联系电话</label>
 		 <input type="text" class="form-control" id="inputEmail3" placeholder="请填写联系电话">
 		</div>
-	  <div class="marginTop20">
-		<label  class=" control-label"><span class="red">*</span>所在地区</label>
-		 <select class="form-control optionWidth">
-		<option>请选择</option>
-		<option>上海</option>
-	 </select>
-	 <select class="form-control optionWidth">
-		<option>请选择</option>
-		<option>上海</option>
-	 </select>
-	  </div>
-	  <div class="marginTop10">
-		 <label  class=" control-label"><span class="red">*</span>详细地址</label>
-		  <input type="text" class="form-control" id="inputEmail3" placeholder="请填写详细地址">
-	  </div>
+		<div class="marginTop20">
+			<label  class=" control-label"><span class="red">*</span>所在地区</label>
+			<select class="form-control optionWidth">
+			 <option>请选择</option>
+			 <option>上海</option>
+			</select>
+			<select class="form-control optionWidth">
+			 <option>请选择</option>
+			 <option>上海</option>
+			</select>
+			<label  class="marginLeft20 control-label">详细地址</label>
+		 <input type="text" class="form-control addrWidth" placeholder="请填写详细地址">
+		</div>
+
 
 
 	  <div class="marginTop20">
@@ -72,9 +83,9 @@
 		 <input type="file" class="form-control-file" id="goodsFile">
 	  </div>
 	</form>
-		<div>
+		<div class="marginTop20">
 			<label>编辑商品详情（可直接复制文字与图片）</label>
-	    </div>
+	  </div>
 		<div id="div1">
 			<div></div>
 		</div>
