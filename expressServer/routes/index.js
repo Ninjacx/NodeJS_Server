@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');//post请求用
 var staticPath = require('express-static');//post请求用
 var router = express.Router();
 var app = express();
+var formidable = require("formidable");
+var fs = require('fs');//文件
 const uuidv5 = require('uuid/v5');
 const uuidv1 = require('uuid/v1');
 
@@ -21,6 +23,28 @@ router.get('/login', function(req, res, next) {
 	}else{
 		res.render('pc/login',{hidden:2});
 	}
+});
+
+//通用图片上传
+router.post('/upload', function(req, res, next) {
+	var form = new formidable.IncomingForm();
+    //设置文件上传存放地址（需要先把这个文件夹，在项目中建好）
+    form.uploadDir = "./public/upload/temp";
+    //执行里面的回调函数的时候，表单已经全部接收完毕了。
+    form.parse(req, function(err, fields, files) {
+            var oldpath = files.file.path; //myFileName就是我们刚在前台模板里面配置的后台接受的名称；
+            var extname = uuidv5(files.file.name, uuidv5.DNS); //因为formidable这个时候存在我们刚路径上的，只是一个path，还没有具体的扩展名，如：2.png这样的
+            // //新的路径由组成：原父路径 + 拓展名
+            var newpath = "./public/upload/temp/" + extname;
+             //改名
+            fs.rename(oldpath, newpath, function(err) { //把之前存的图片换成真的图片的完整路径
+                if(err) {
+                    res.json({code: -1,data: err});
+                }else{
+                    res.json({code:200,data: '/upload/temp/'+extname}) //返回图片路径，让前端展示
+				        }
+            });
+    });
 });
 
 //获取用户列表
@@ -160,8 +184,8 @@ router.get('/getGoodsList',(req, res, next)=>{
       });
 });
 
-//首页产品展示
-router.get('/issue',AuthMiddleware,(req, res, next)=>{
+//首页产品展示 AuthMiddleware
+router.get('/issue',(req, res, next)=>{
 
 	// count 为分页数大于整数则多1
     /*var selectSQL = `SELECT *,ceil((select COUNT(id) from t_goods)/20)as count from t_goods WHERE is_del = 0 LIMIT ${req.query.limit} OFFSET ${req.query.goods_id}`;
@@ -207,7 +231,6 @@ router.post('/regist', function(req, res, next) {
 	  }
   });
 });
-
 
 //
 router.get('/register', function(req, res, next) {

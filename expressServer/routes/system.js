@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 //富文本编辑器
 router.get('/test', function(req, res, next) {
   var arg = url.parse(req.url,true).query;
- 
+
   var {id}=arg;
   var selectSQL = `select details from t_goods_details where goods_id = ${id?id:0}`;
   conf.query(selectSQL,function(err,result){
@@ -36,7 +36,7 @@ router.get('/user', function(req, res, next) {
   var getUser = `select * from t_user where is_del = 0`;
   conf.query(getUser,function(err,result){
           var result=JSON.stringify(result);
-		 
+
           var user=JSON.parse(result);
 		   console.log(user);
       res.render('system/userList',{res:user,left:2});
@@ -48,22 +48,43 @@ router.post('/upload', function(req, res, next) {
 	var form = new formidable.IncomingForm();
     //设置文件上传存放地址（需要先把这个文件夹，在项目中建好）
     form.uploadDir = "./public/upload/temp";
+
+   form.maxFieldsSize = 20 * 1024 * 1024;//上传文件的最大大小
+   form.parse(req, (err, fields, files) => {
+       if (err) {
+           throw err;
+       }
+       const title = fields.title;
+       const singer = fields.singer;
+       const music = path.basename(files.music.path);
+       const img = path.basename(files.img.path);
+       db.query('INSERT INTO music (title,singer,music,img) VALUES (?,?,?,?)', [
+           title,
+           singer,
+           music,
+           img
+       ], (err, rows) => {
+           if (err) {
+               throw err;
+           }
+           res.redirect('/');
+       })
+   })
     //执行里面的回调函数的时候，表单已经全部接收完毕了。
-    form.parse(req, function(err, fields, files) {
-            var oldpath = files.fileNames.path; //myFileName就是我们刚在前台模板里面配置的后台接受的名称；
-            var extname = uuidv3(files.fileNames.name, uuidv3.DNS); //因为formidable这个时候存在我们刚路径上的，只是一个path，还没有具体的扩展名，如：2.png这样的
-            //新的路径由组成：原父路径 + 拓展名
-            var newpath = "./public/upload/temp/" + extname;
-            //改名
-            fs.rename(oldpath, newpath, function(err) { //把之前存的图片换成真的图片的完整路径
-                if(err) {
-                    res.send({errno:0,data: []}) //错误返回
-                }else{
-                res.send({errno:0,data: ['/upload/temp/'+extname]}) //返回图片路径，让前端展示
-				}
-                
-            });
-    });
+    // form.parse(req, function(err, fields, files) {
+    //         var oldpath = files.fileNames.path; //myFileName就是我们刚在前台模板里面配置的后台接受的名称；
+    //         var extname = uuidv3(files.fileNames.name, uuidv3.DNS); //因为formidable这个时候存在我们刚路径上的，只是一个path，还没有具体的扩展名，如：2.png这样的
+    //         //新的路径由组成：原父路径 + 拓展名
+    //         var newpath = "./public/upload/temp/" + extname;
+    //         //改名
+    //         fs.rename(oldpath, newpath, function(err) { //把之前存的图片换成真的图片的完整路径
+    //             if(err) {
+    //                 res.send({errno:0,data: []}) //错误返回
+    //             }else{
+    //                 res.send({errno:0,data: ['/upload/temp/'+extname]}) //返回图片路径，让前端展示
+		// 		        }
+    //         });
+    // });
 });
 
 router.post('/saveText', function(req, res, next) {
@@ -77,15 +98,15 @@ router.post('/saveText', function(req, res, next) {
 });
 /***文档***/
 
-//vue 
+//vue
 router.get('/vue', function(req, res, next) {
   res.render('system/vue',{left:5});
 });
-//css 
+//css
 router.get('/css', function(req, res, next) {
   res.render('system/css',{left:6});
 });
-//其它 
+//其它
 router.get('/else', function(req, res, next) {
   res.render('system/else',{left:7});
 });

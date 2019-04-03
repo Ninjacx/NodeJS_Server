@@ -99,6 +99,28 @@
 
 <script>
 	//$('#goodsFile').get(0).files[0]
+$('#goodsFile').change(function(){
+	console.log($('#goodsFile').get(0).files[0]);
+var formData=new FormData();
+// formData.append('fileNames','aaa');
+var formData = new FormData();
+formData.append('file',$('#goodsFile').get(0).files[0]);
+	$.ajax({
+                type:'POST',
+                url:'/upload',
+                data:formData,
+								contentType: false,
+                // contentType:undefined,
+                processData:false,
+                mimeType:"multipart/form-data",
+                success:function(data){
+									var data = JSON.parse(data);
+                    console.log(data.code);
+                }
+            });
+
+});
+
 window.onload = function(){
   $('.w-e-text-container').css('height',window.innerHeight+'px !important');
 
