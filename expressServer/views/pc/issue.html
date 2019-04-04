@@ -18,7 +18,6 @@
     background: #FFFFFF;
     padding: 20px 50px 50px 50px;
     margin-top: 20px;
-
 	}
 	.page-header{
 		border-bottom: 5px solid #ffbf09;
@@ -32,10 +31,10 @@
 <div>
   <div class="issue-main">
   <h3 id="pagination" class="page-header">发布商品</h3>
-	<form class="form-horizontal">
+	<form class="form-horizontal" id="">
 		<div class="marginTop20">
 			 <label  class=" control-label"><span class="red">*</span>商品状态</label>
-			 <select class="form-control optionWidth">
+			 <select class="form-control optionWidth" name="status">
 				  <option>请选择</option>
 			 	  <option>全新</option>
 			  	<option>闲置</option>
@@ -44,47 +43,44 @@
 
 	  <div class="marginTop20">
 	   	<label  class=" control-label"><span class="red">*</span>商品名称</label>
-		  <input type="text" class="form-control" id="inputEmail3" placeholder="请填写商品名">
+		  <input name="title" type="text" class="form-control" id="inputEmail3" placeholder="请填写商品名">
 	  </div>
 	<div class="marginTop20">
 		 <label  class=" control-label"><span class="red">*</span>商品价格</label>
-		 <input type="text" class="form-control" id="inputEmail3" placeholder="商品价格">
+		 <input name="price" type="text" class="form-control" id="inputEmail3" placeholder="商品价格">
 	  </div>
 	  <div class="marginTop20">
 		<label  class=" control-label"><span class="red">*</span>商品概述</label>
-		  <input type="text" class="form-control" id="inputEmail3" placeholder="请简述商品将展示在首页">
+		  <input name="description" type="text" class="form-control" id="inputEmail3" placeholder="请简述商品将展示在首页">
 	  </div>
 	  <div class="marginTop20">
 		<label  class=" control-label">商品外部链接</label>
-		  <input type="text" class="form-control" id="inputEmail3" placeholder="外部链接方便客户直接购买">
+		  <input name="link" type="text" class="form-control" id="inputEmail3" placeholder="外部链接方便客户直接购买">
 	  </div>
 	  <div class="marginTop20">
 		 <label  class=" control-label"><span class="red">*</span>联系人</label>
-		 <input type="text" class="form-control" id="inputEmail3" placeholder="请填写联系人">
+		 <input name="" type="text" class="form-control" id="inputEmail3" placeholder="请填写联系人">
 		</div>
 		<div class="marginTop20">
 		 <label  class=" control-label"><span class="red">*</span>联系电话</label>
-		 <input type="text" class="form-control" id="inputEmail3" placeholder="请填写联系电话">
+		 <input name="" type="text" class="form-control" id="inputEmail3" placeholder="请填写联系电话">
 		</div>
 		<div class="marginTop20">
 			<label  class=" control-label"><span class="red">*</span>所在地区</label>
-			<select class="form-control optionWidth">
-			 <option>请选择</option>
-			 <option>上海</option>
-			</select>
-			<select class="form-control optionWidth">
-			 <option>请选择</option>
-			 <option>上海</option>
+			<select name="" class="form-control optionWidth">
+				 <option>请选择</option>
+				 <% for (var i=0; i<province.length; i++) { %>
+				   <option value="<%= province[i].region_id%>"><%= province[i].region_name %></a></option>
+				 <%}%>
 			</select>
 			<label  class="marginLeft20 control-label">详细地址</label>
-		 <input type="text" class="form-control addrWidth" placeholder="请填写详细地址">
+		  <input name="" type="text" class="form-control addrWidth" placeholder="请填写详细地址">
 		</div>
-
-
-
 	  <div class="marginTop20">
 		<label  class=" control-label"><span class="red">*</span>商品首页图</label>
-		 <input type="file" class="form-control-file" id="goodsFile">
+		 <input type="file" class="form-control-file FileUpload">
+		 <input type="hidden" name="url">
+		 <!-- <img src="" class="resUrl" alt=""> -->
 	  </div>
 	</form>
 		<div class="marginTop20">
@@ -100,50 +96,39 @@
     <!-- 底部固定区域 -->
 	<% include footer.html %>
 </div>
-
 <script>
 	//$('#goodsFile').get(0).files[0]
-$('#goodsFile').change(function(){
-	console.log($('#goodsFile').get(0).files[0]);
+$('.FileUpload').change(function(){
 var formData=new FormData();
-// formData.append('fileNames','aaa');
-var formData = new FormData();
-formData.append('file',$('#goodsFile').get(0).files[0]);
-	$.ajax({
+formData.append('file',$('.FileUpload').get(0).files[0]);
+		$.ajax({
                 type:'POST',
                 url:'/upload',
                 data:formData,
 								contentType: false,
                 processData:false,
                 mimeType:"multipart/form-data",
-                success:function(data){
-									var data = JSON.parse(data);
-                    console.log(data.code);
+                success:function(res){
+									var res = JSON.parse(res);
+                    console.log(res.data);
+										$('[name=url]').val(res.data);
+										$('.resUrl').attr('src',res.data);
                 }
-            });
-
+      });
 });
 
 window.onload = function(){
   $('.w-e-text-container').css('height',window.innerHeight+'px !important');
-
   var E = window.wangEditor
   var editor = new E('#div1')
-
   // 配置服务器端地址
   // editor.customConfig.uploadImgServer = '/a';
   //editor.customConfig.uploadImgShowBase64 = true;   // 使用 base64 保存图片
-
    editor.customConfig.uploadImgServer = '/system/upload';
   // 进行下文提到的其他配置
-  // ……
-  // ……
-  // ……
   editor.customConfig.uploadFileName = 'fileNames';
   editor.customConfig.uploadImgMaxLength = 1
   editor.create();
-
-
 
   document.getElementById('issueSubmit').addEventListener('click', function () {
      console.log(editor.txt.html());

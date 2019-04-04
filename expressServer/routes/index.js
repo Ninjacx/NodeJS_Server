@@ -184,17 +184,14 @@ router.get('/getGoodsList',(req, res, next)=>{
       });
 });
 
-//首页产品展示 AuthMiddleware
-router.get('/issue',(req, res, next)=>{
-
+//首页产品展示
+router.get('/issue',AuthMiddleware,(req, res, next)=>{
 	// count 为分页数大于整数则多1
-    /*var selectSQL = `SELECT *,ceil((select COUNT(id) from t_goods)/20)as count from t_goods WHERE is_del = 0 LIMIT ${req.query.limit} OFFSET ${req.query.goods_id}`;
-      conf.query(selectSQL,function(err,result){
-            var result=JSON.stringify(result);
-        res.json({res:result});
-      });*/
-			// if(req.session.token){
-				res.render('pc/issue', { hidden: ""});
+    var region = `select region_id,region_name from region where region_type = 1`;
+      conf.query(region,function(err,result){
+      	res.render('pc/issue', { hidden: "",province: result});
+      });
+
 });
 
 router.get('/aboutUs', function(req, res, next) {
