@@ -191,7 +191,27 @@ router.get('/issue',AuthMiddleware,(req, res, next)=>{
       conf.query(region,function(err,result){
       	res.render('pc/issue', { hidden: "",province: result});
       });
+});
 
+//首页产品展示
+router.post('/issueSubmit',AuthMiddleware,(req, res, next)=>{
+		console.log(req.body);
+		var {is_new,title,price,description,link,contact_status,contact_val,region_id,addr}=req.body;
+		var saveGoods = `INSERT INTO t_user(is_new,title,price,description,link,contact_status,contact_val,region_id,addr)VALUES(
+			${is_new},'${title}','${price}',${description},${link},${contact_status},${contact_val},${region_id},${addr},now())`;
+
+		var oSaveGoods = conf.quertPromise(saveGoods);
+		// var oDetailList = conf.quertPromise(orderDetailList);
+
+		var promise = Promise.all([oSaveGoods]);//oList:res1,oDetailList:res2
+					promise.then(function([resGoods]) {
+						console.log(resGoods);
+							// res.json({oList:resOrder,oDetailList:resDetailOrder});
+					}).catch(function(err) {
+						res.json(err);
+					  // ...
+					  //定义错误页面
+					});
 });
 
 router.get('/aboutUs', function(req, res, next) {

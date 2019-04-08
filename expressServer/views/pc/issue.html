@@ -1,7 +1,6 @@
 ﻿
 <!DOCTYPE html>
 <html>
-
 	<% include common.html %>
 	<script src="/js/wangEditor.min.js" charset="utf-8"></script>
 
@@ -31,58 +30,61 @@
 <div>
   <div class="issue-main">
   <h3 id="pagination" class="page-header">发布商品</h3>
-	<form class="form-horizontal" id="">
-		<div class="marginTop20">
-			 <label  class=" control-label"><span class="red">*</span>商品状态</label>
-			 <select class="form-control optionWidth" name="status">
-				  <option>请选择</option>
-			 	  <option>全新</option>
-			  	<option>闲置</option>
+		<form class="form-horizontal" action="/issueSubmit" method="post"  onsubmit="return checkIssue()">
+	  	<div class="marginTop20">
+			 <label  class=" control-label"><span class="red">*</span>是否全新</label>
+			 <select name="is_new" class="form-control optionWidth" >
+				  <option value="">请选择</option>
+			 	  <option value="0">全新</option>
+			  	<option value="1">闲置</option>
 			 </select>
-	  </div>
-
+	    </div>
 	  <div class="marginTop20">
-	   	<label  class=" control-label"><span class="red">*</span>商品名称</label>
-		  <input name="title" type="text" class="form-control" id="inputEmail3" placeholder="请填写商品名">
+	   	<label  class="control-label"><span class="red">*</span>商品名称</label>
+		  <input name="title" type="text" class="form-control"  placeholder="请填写商品名">
 	  </div>
-	<div class="marginTop20">
+		<div class="marginTop20">
 		 <label  class=" control-label"><span class="red">*</span>商品价格</label>
-		 <input name="price" type="text" class="form-control" id="inputEmail3" placeholder="商品价格">
+		 <input name="price" type="text" class="form-control"  placeholder="商品价格">
 	  </div>
 	  <div class="marginTop20">
 		<label  class=" control-label"><span class="red">*</span>商品概述</label>
-		  <input name="description" type="text" class="form-control" id="inputEmail3" placeholder="请简述商品将展示在首页">
+		  <input name="description" type="text" class="form-control"  placeholder="请简述商品将展示在首页">
 	  </div>
 	  <div class="marginTop20">
 		<label  class=" control-label">商品外部链接</label>
-		  <input name="link" type="text" class="form-control" id="inputEmail3" placeholder="外部链接方便客户直接购买">
+		  <input name="link" type="text" class="form-control"  placeholder="外部链接方便客户直接购买">
 	  </div>
 	  <div class="marginTop20">
-		 <label  class=" control-label"><span class="red">*</span>联系人</label>
-		 <input name="" type="text" class="form-control" id="inputEmail3" placeholder="请填写联系人">
+			<div class="marginTop20">
+ 			<label  class=" control-label"><span class="red">*</span>联系方式</label>
+ 			<select class="form-control optionWidth" name="contact_status">
+ 				 <option value="">请选择</option>
+ 				 <option value="0">手机</option>
+ 				 <option value="1">QQ</option>
+				 <option value="2">微信</option>
+				 <option value="3">其它</option>
+ 			</select>
+			<input name="contact_val" type="text" class="form-control addrWidth" placeholder="请输入">
+ 		 </div>
 		</div>
 		<div class="marginTop20">
-		 <label  class=" control-label"><span class="red">*</span>联系电话</label>
-		 <input name="" type="text" class="form-control" id="inputEmail3" placeholder="请填写联系电话">
-		</div>
-		<div class="marginTop20">
-			<label  class=" control-label"><span class="red">*</span>所在地区</label>
-			<select name="" class="form-control optionWidth">
-				 <option>请选择</option>
+			<label  class=" control-label"><span class="red">*</span>发货地区</label>
+			<select name="region_id" class="form-control optionWidth">
+				 <option value="null">请选择</option>
 				 <% for (var i=0; i<province.length; i++) { %>
 				   <option value="<%= province[i].region_id%>"><%= province[i].region_name %></a></option>
 				 <%}%>
 			</select>
-			<label  class="marginLeft20 control-label">详细地址</label>
-		  <input name="" type="text" class="form-control addrWidth" placeholder="请填写详细地址">
+		  <input name="addr" type="text" class="form-control addrWidth" placeholder="请填写发货详细地址">
 		</div>
 	  <div class="marginTop20">
 		<label  class=" control-label"><span class="red">*</span>商品首页图</label>
 		 <input type="file" class="form-control-file FileUpload">
-		 <input type="hidden" name="url">
+		 <!-- <input type="hidden" name="url"> -->
 		 <!-- <img src="" class="resUrl" alt=""> -->
 	  </div>
-	</form>
+
 		<div class="marginTop20">
 			<label>编辑商品详情（可直接复制文字与图片）</label>
 	  </div>
@@ -90,8 +92,10 @@
 			<div></div>
 		</div>
 		<div class=" marginTop20">
-			<a id="issueSubmit" class="btn btn-default btn-lg" role="button">提交</a>
+			<!-- <a id="issueSubmit" class="btn btn-default btn-lg" role="button">提交</a> -->
+			<input class="btn btn-default btn-lg" type="submit"  value="提交">
 		</div>
+		</form>
 	</div>
     <!-- 底部固定区域 -->
 	<% include footer.html %>
@@ -117,10 +121,10 @@ formData.append('file',$('.FileUpload').get(0).files[0]);
       });
 });
 
-window.onload = function(){
+
   $('.w-e-text-container').css('height',window.innerHeight+'px !important');
-  var E = window.wangEditor
-  var editor = new E('#div1')
+  var E = window.wangEditor;
+  var editor = new E('#div1');
   // 配置服务器端地址
   // editor.customConfig.uploadImgServer = '/a';
   //editor.customConfig.uploadImgShowBase64 = true;   // 使用 base64 保存图片
@@ -130,14 +134,18 @@ window.onload = function(){
   editor.customConfig.uploadImgMaxLength = 1
   editor.create();
 
-  document.getElementById('issueSubmit').addEventListener('click', function () {
-     console.log(editor.txt.html());
-    $.post('/system/saveText',{'txt':editor.txt.html(),'id':getQueryString('id')},function(result){
-        console.log('success');
-    })
-    // 读取 html
-  }, false)
+  // document.getElementById('issueSubmit').addEventListener('click', function () {
+  //    console.log(editor.txt.html());
+  //   $.post('/system/saveText',{'txt':editor.txt.html(),'id':getQueryString('id')},function(result){
+  //       console.log('success');
+  //   })
+  //   // 读取 html
+  // }, false)
 
+// 表单提交验证的方法
+function checkIssue(){
+	console.log(editor.txt.html());
+	return true;
 }
 
 //获取浏览器url 参数值 ，name ：浏览器参数

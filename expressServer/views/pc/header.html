@@ -42,7 +42,7 @@
 				<ul>
 				  	<%if(token){%>
 							<li><img width="35px" height="35px"  src="/images/user-icon.png" alt=""></li>
-							<li>欢迎你，<%=nickName %></li><li><form id="logout" action="logout" method="post"/></li>
+							<li>欢迎你，<%=nickName %></li>
 							<li data-toggle="modal" data-target="#Modal">退出</li>
 					  <%}else{%>
 							<li class="<%if(hidden == 2){%> hidden <%}%>"><a href="/login">请登陆</a></li>
