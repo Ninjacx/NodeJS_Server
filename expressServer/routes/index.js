@@ -15,6 +15,7 @@ const uuidv1 = require('uuid/v1');
 /*验证登录*/
 const AuthMiddleware = require('./checklogin');
 
+const common = require('./common');
 
 router.get('/login', function(req, res, next) {
 	// 防止重复登陆
@@ -193,12 +194,13 @@ router.get('/issue',AuthMiddleware,(req, res, next)=>{
       });
 });
 
-//首页产品展示
+//产品
 router.post('/issueSubmit',AuthMiddleware,(req, res, next)=>{
 		console.log(req.body);
-		var {is_new,title,price,description,link,contact_status,contact_val,region_id,addr}=req.body;
-		var saveGoods = `INSERT INTO t_user(is_new,title,price,description,link,contact_status,contact_val,region_id,addr)VALUES(
-			${is_new},'${title}','${price}',${description},${link},${contact_status},${contact_val},${region_id},${addr},now())`;
+		console.log(common.isNull("   "));
+		return false;
+		var {is_new,title,price,description,link,contact_status,contact_val,region_id,addr,url}=req.body;
+		var saveGoods = `INSERT INTO t_goods(is_new,title,price,description,link,contact_status,contact_val,region_id,addr,createtime,url)VALUES(${is_new},"${title}","${price}","${description}","${link}","${contact_status}","${contact_val}",${region_id},"${addr}",now(),"${url}")`;
 
 		var oSaveGoods = conf.quertPromise(saveGoods);
 		// var oDetailList = conf.quertPromise(orderDetailList);

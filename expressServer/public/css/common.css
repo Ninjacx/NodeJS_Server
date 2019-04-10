@@ -18,6 +18,9 @@ a{
 	display:initial;
 	width:100%;
 }
+.hide{
+	display: none;
+}
 a:hover{
 	color: #f58103;
 	text-decoration: none;

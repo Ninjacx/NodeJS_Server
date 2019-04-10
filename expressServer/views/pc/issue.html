@@ -57,15 +57,15 @@
 	  </div>
 	  <div class="marginTop20">
 			<div class="marginTop20">
- 			<label  class=" control-label"><span class="red">*</span>联系方式</label>
- 			<select class="form-control optionWidth" name="contact_status">
- 				 <option value="">请选择</option>
- 				 <option value="0">手机</option>
- 				 <option value="1">QQ</option>
-				 <option value="2">微信</option>
-				 <option value="3">其它</option>
- 			</select>
-			<input name="contact_val" type="text" class="form-control addrWidth" placeholder="请输入">
+	 			<label  class=" control-label"><span class="red">*</span>联系方式</label>
+		 			<select class="form-control optionWidth" name="contact_status">
+		 				 <option value="">请选择</option>
+		 				 <option value="0">手机</option>
+		 				 <option value="1">QQ</option>
+						 <option value="2">微信</option>
+						 <option value="3">其它</option>
+		 			</select>
+				<input name="contact_val" type="text" class="form-control addrWidth" placeholder="请输入">
  		 </div>
 		</div>
 		<div class="marginTop20">
@@ -80,7 +80,15 @@
 		</div>
 	  <div class="marginTop20">
 		<label  class=" control-label"><span class="red">*</span>商品首页图</label>
-		 <input type="file" class="form-control-file FileUpload">
+		 <input type="file" class="hide form-control-file FileUpload hide">
+		 	<div>
+				<input type="hidden" name="url" >
+		  	<img src="" width="300px" error="" alt="" class="ShowImage">
+			</div>
+		 <button onclick="javascript:$('.FileUpload').click();"  type="button" class="btn btn-default btn-sm marginTop10"><span class="glyphicon glyphicon-cloud-upload"></span>上传
+		 </button>
+
+
 		 <!-- <input type="hidden" name="url"> -->
 		 <!-- <img src="" class="resUrl" alt=""> -->
 	  </div>
@@ -101,6 +109,7 @@
 	<% include footer.html %>
 </div>
 <script>
+
 	//$('#goodsFile').get(0).files[0]
 $('.FileUpload').change(function(){
 var formData=new FormData();
@@ -116,10 +125,10 @@ formData.append('file',$('.FileUpload').get(0).files[0]);
 									var res = JSON.parse(res);
                     console.log(res.data);
 										$('[name=url]').val(res.data);
-										$('.resUrl').attr('src',res.data);
+										$('.ShowImage').attr('src',res.data);
                 }
       });
-});
+})	;
 
 
   $('.w-e-text-container').css('height',window.innerHeight+'px !important');
@@ -145,7 +154,7 @@ formData.append('file',$('.FileUpload').get(0).files[0]);
 // 表单提交验证的方法
 function checkIssue(){
 	console.log(editor.txt.html());
-	return false;
+	return true;
 }
 
 //获取浏览器url 参数值 ，name ：浏览器参数
