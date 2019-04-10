@@ -197,8 +197,8 @@ router.get('/issue',AuthMiddleware,(req, res, next)=>{
 //产品
 router.post('/issueSubmit',AuthMiddleware,(req, res, next)=>{
 		console.log(req.body);
-		console.log(common.isNull("   "));
-		return false;
+		// console.log(common.isNull(""));
+		// return false;
 		var {is_new,title,price,description,link,contact_status,contact_val,region_id,addr,url}=req.body;
 		var saveGoods = `INSERT INTO t_goods(is_new,title,price,description,link,contact_status,contact_val,region_id,addr,createtime,url)VALUES(${is_new},"${title}","${price}","${description}","${link}","${contact_status}","${contact_val}",${region_id},"${addr}",now(),"${url}")`;
 
