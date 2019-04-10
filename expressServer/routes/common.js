@@ -7,7 +7,7 @@
  /*验证*/
  let common = {
    isNull: function(data) {
-      instanceof Array
+      // instanceof Array
       //字符串是否为空
       if(typeof(data)==="string"){
          return Boolean(data.replace(/(^\s*)|(\s*$)/g, ""));
