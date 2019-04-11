@@ -6,6 +6,7 @@ body ul{
 body{
   padding: 0;
   margin: 0;
+	background: #F6F3EA;
 }
 a{
 	color:#000000;
@@ -26,10 +27,7 @@ a:hover{
 	text-decoration: none;
 	cursor: pointer;
 }
-.home-main{
-	margin: 0 auto;
-	width: 1050px;
-}
+
 .optionWidth{
 	width:110px;
 }
