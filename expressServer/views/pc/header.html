@@ -43,7 +43,7 @@
 				  	<%if(token){%>
 							<li><img width="35px" height="35px"  src="/images/user-icon.png" alt=""></li>
 							<li>欢迎你，<%=nickName %></li>
-							<li data-toggle="modal" data-target="#Modal">退出</li>
+							<li data-toggle="modal" data-target="#Modal">退出<form id="logout" method="post" action="/logout"></form></li>
 					  <%}else{%>
 							<li class="<%if(hidden == 2){%> hidden <%}%>"><a href="/login">请登陆</a></li>
 							<li><a href="/register">免费注册</a></li>

@@ -1,37 +1,58 @@
 var Common = new Object({
-	Time: function(DateTime){
-		var d = new Date(DateTime)
-		var Minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
-		var Seconds = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
-		var time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + Minutes + ':' + Seconds
-		return time;
+		Time: function(DateTime){
+			var d = new Date(DateTime)
+			var Minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+			var Seconds = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
+			var time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + Minutes + ':' + Seconds
+			return time;
+		},
+		//默认src给loading图片，data-img给实际图片 图片加载完显示
+		loadingImg: function(clssName) {
+					var ImgCount = document.querySelectorAll(clssName).length;
+					var j = 0;
+					for (var i = 0; i < ImgCount; i++) {
+						var _img = document.querySelectorAll(clssName)[i].getAttribute("data-img");
+						var img = new Image();
+						img.src = _img;
+						img.onload = function () {
+							var img1 = document.querySelectorAll(clssName)[j];//.src= arr[0];
+							img1.src = img1.getAttribute("data-img");
+							j++;
+						};
+					}
 	},
-	//默认src给loading图片，data-img给实际图片 图片加载完显示
-	loadingImg: function(clssName) {
-				var ImgCount = document.querySelectorAll(clssName).length;
-				var j = 0;
-				for (var i = 0; i < ImgCount; i++) {
-					var _img = document.querySelectorAll(clssName)[i].getAttribute("data-img");
-					var img = new Image();
-					img.src = _img;
-					img.onload = function () {
-						var img1 = document.querySelectorAll(clssName)[j];//.src= arr[0];
-						img1.src = img1.getAttribute("data-img");
-						j++;
-					};
-				}
-},
-toast: function(content) {
-	var toast = $('<div style="z-index:9999;position:fixed;top: 50%; left: 0; bottom: 0; right: 0;margin: auto;width:auto;'
-			+ 'text-align:center;color:white;"><div style="font-size: 18px"><span style="padding:11px 20px;border-radius:10px;background:rgba(0,0,0,0.6);">' + content + '</span></div></div>');
-	$('body').append(toast);
-	setTimeout(function () {
-			toast.remove();
-	}, 2600);
-},
-isNull: function(text){
-	return Boolean($.trim(text));
-}
+	toast: function(content) {
+		var toast = $('<div class="toast" style="z-index:9999;position:fixed;top: 50%; left: 0; bottom: 0; right: 0;margin: auto;width:auto;'
+				+ 'text-align:center;color:white;"><div style="font-size: 18px"><span style="padding:11px 20px;border-radius:10px;background:rgba(0,0,0,0.6);">' + content + '</span></div></div>');
+		$('body').append(toast);
+		setTimeout(function () {
+				toast.remove();
+		}, 2600);
+	},
+	isNull: function(text){
+		return Boolean($.trim(text));
+	},
+	$setNameVal: function(_name,val){
+		return $('[name='+_name+']').val(val);
+	},
+	$getNameVal: function(_name){
+		return $('[name='+_name+']').val();
+	},
+	$setClassVal: function(_Class,val){
+		return $('.'+_Class).val(val);
+	},
+	$getClassVal: function(_Class){
+		return $('.'+_Class).val();
+	},
+	// 如果为空返回指定消息
+	$NullMessage: function(str,Message) {
+		if(!this.isNull(str)){
+			this.toast(Message);
+			return false;
+		}
+		return 1;
+	}
+
 
 });
 //为空返回true

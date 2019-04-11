@@ -48,8 +48,8 @@
 		 <input name="price" type="text" class="form-control"  placeholder="商品价格">
 	  </div>
 	  <div class="marginTop20">
-		<label  class=" control-label"><span class="red">*</span>商品概述</label>
-		  <input name="description" type="text" class="form-control"  placeholder="请简述商品将展示在首页">
+		<label  class="control-label"><span class="red">*</span>商品概述</label>
+		  <input name="deScription" type="text" class="form-control"  placeholder="请简述商品将展示在首页">
 	  </div>
 	  <div class="marginTop20">
 		<label  class=" control-label">商品外部链接</label>
@@ -71,7 +71,7 @@
 		<div class="marginTop20">
 			<label  class=" control-label"><span class="red">*</span>发货地区</label>
 			<select name="region_id" class="form-control optionWidth">
-				 <option value="null">请选择</option>
+				 <option value="">请选择</option>
 				 <% for (var i=0; i<province.length; i++) { %>
 				   <option value="<%= province[i].region_id%>"><%= province[i].region_name %></a></option>
 				 <%}%>
@@ -79,18 +79,15 @@
 		  <input name="addr" type="text" class="form-control addrWidth" placeholder="请填写发货详细地址">
 		</div>
 	  <div class="marginTop20">
-		<label  class=" control-label"><span class="red">*</span>商品首页图</label>
-		 <input type="file" class="hide form-control-file FileUpload hide">
+	  	<label  class=" control-label"><span class="red">*</span>商品首页图</label>
+		  <input type="file" class="hide form-control-file FileUpload hide">
 		 	<div>
 				<input type="hidden" name="url" >
+				<input type="hidden" name="GoodsDetails" >
 		  	<img src="" width="300px" error="" alt="" class="ShowImage">
 			</div>
-		 <button onclick="javascript:$('.FileUpload').click();"  type="button" class="btn btn-default btn-sm marginTop10"><span class="glyphicon glyphicon-cloud-upload"></span>上传
-		 </button>
-
-
-		 <!-- <input type="hidden" name="url"> -->
-		 <!-- <img src="" class="resUrl" alt=""> -->
+		  <button onclick="javascript:$('.FileUpload').click();"  type="button" class="btn btn-default btn-sm marginTop10"><span class="glyphicon glyphicon-cloud-upload"></span>上传
+		  </button>
 	  </div>
 
 		<div class="marginTop20">
@@ -110,7 +107,7 @@
 </div>
 <script>
 
-	//$('#goodsFile').get(0).files[0]
+//图片上传
 $('.FileUpload').change(function(){
 var formData=new FormData();
 formData.append('file',$('.FileUpload').get(0).files[0]);
@@ -151,10 +148,49 @@ formData.append('file',$('.FileUpload').get(0).files[0]);
   //   // 读取 html
   // }, false)
 
+// 验证表单
+function checkForm(){
+
+	if(!Common.$NullMessage(Common.$getNameVal("is_new"),"请选择商品是否全新")){
+		return false;
+	}if(!Common.$NullMessage(Common.$getNameVal("title"),"请填写商品名称")){
+		return false;
+	}if(!Common.$NullMessage(Common.$getNameVal("price"),"请填写商品价格")){
+		return false;
+	}if(!Common.$NullMessage(Common.$getNameVal("deScription"),"请填写商品概述")){
+		return false;
+	}if(!Common.$NullMessage(Common.$getNameVal("contact_status"),"请选择联系方式")){
+		return false;
+	}if(!Common.$NullMessage(Common.$getNameVal("contact_val"),"请填写你的联系方式")){
+		return false;
+	}if(!Common.$NullMessage(Common.$getNameVal("region_id"),"请选择发货地区")){
+		return false;
+	}if(!Common.$NullMessage(Common.$getNameVal("url"),"请上传首页展示图")){
+		return false;
+	}
+	Common.$setNameVal("GoodsDetails",editor.txt.html());
+	return true;
+}
 // 表单提交验证的方法
 function checkIssue(){
-	console.log(editor.txt.html());
-	return true;
+
+
+	console.log('submit');
+	// return false;
+
+
+
+	return checkForm()?1:scrollTop();
+
+
+	// console.log();
+
+	// console.log(editor.txt.html());
+
+}
+function scrollTop(){
+	$("html,body").animate({scrollTop:0},1000);
+	return false;
 }
 
 //获取浏览器url 参数值 ，name ：浏览器参数

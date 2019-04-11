@@ -176,9 +176,8 @@ router.get('/weekSpecial',(req, res, next)=>{
 
 //首页产品分页通用
 router.get('/getGoodsList',(req, res, next)=>{
-    // console.log(req.query.goods_id);
 	// count 为分页数大于整数则多1
-    var selectSQL = `SELECT *,ceil((select COUNT(id) from t_goods)/20)as count from t_goods WHERE is_del = 0 LIMIT ${req.query.limit} OFFSET ${req.query.goods_id}`;
+    var selectSQL = `SELECT *,ceil((select COUNT(id) from t_goods WHERE is_del = 0 and status = 1)/20)as count from t_goods WHERE is_del = 0 and status = 1 ORDER BY createtime desc LIMIT ${req.query.limit} OFFSET ${req.query.goods_id}`;
       conf.query(selectSQL,function(err,result){
             var result=JSON.stringify(result);
         res.json({res:result});
@@ -194,20 +193,20 @@ router.get('/issue',AuthMiddleware,(req, res, next)=>{
       });
 });
 
-//产品
+//发布商品
 router.post('/issueSubmit',AuthMiddleware,(req, res, next)=>{
 		console.log(req.body);
-		// console.log(common.isNull(""));
-		// return false;
-		var {is_new,title,price,description,link,contact_status,contact_val,region_id,addr,url}=req.body;
-		var saveGoods = `INSERT INTO t_goods(is_new,title,price,description,link,contact_status,contact_val,region_id,addr,createtime,url)VALUES(${is_new},"${title}","${price}","${description}","${link}","${contact_status}","${contact_val}",${region_id},"${addr}",now(),"${url}")`;
-
+		var {is_new,title,price,deScription,link,contact_status,contact_val,region_id,addr,url,GoodsDetails}=req.body;
+		var saveGoods = `INSERT INTO t_goods(is_new,title,price,description,link,contact_status,contact_val,region_id,addr,createtime,url)VALUES(${is_new},"${title}","${price}","${deScription}","${link}","${contact_status}","${contact_val}",${region_id},"${addr}",now(),"${url}")`;
 		var oSaveGoods = conf.quertPromise(saveGoods);
 		// var oDetailList = conf.quertPromise(orderDetailList);
-
 		var promise = Promise.all([oSaveGoods]);//oList:res1,oDetailList:res2
 					promise.then(function([resGoods]) {
-						console.log(resGoods);
+					var saveGoodsDetails = `INSERT INTO t_goods_details(goods_id,details)VALUES("${resGoods.insertId}","${GoodsDetails}")`;
+					conf.query(saveGoodsDetails,function(err,result){
+							console.log(err);
+		      		res.render('pc/href',{hidden: ''});
+		      });
 							// res.json({oList:resOrder,oDetailList:resDetailOrder});
 					}).catch(function(err) {
 						res.json(err);
