@@ -224,8 +224,8 @@ router.post('/regist', function(req, res, next) {
   var psw = uuidv5(password, uuidv5.DNS);
 	var nick_name = '圈圈';
 	var token = uuidv1();
-  var isHave_user  = `select id from t_user where account = ${phone} and is_del = 0 limit 1`;
-  var addUser = `INSERT INTO t_user(account,pwd,nick_name,phone,createtime)VALUES(${phone},'${psw}','${nick_name}',${phone},now())`;
+  var isHave_user  = `select id from t_user where account = "${phone}" and is_del = 0 limit 1`;
+  var addUser = `INSERT INTO t_user(account,pwd,nick_name,phone,createtime)VALUES("${phone}","${psw}","${nick_name}","${phone}",now())`;
 	// var addLoginToken = `INSERT INTO t_token_log(uid,token,createtime)VALUES(${result[0].id},"${token}",now())`;
   // 1.查询是否注册过
   conf.query(isHave_user,function(err,result) {
