@@ -23,7 +23,14 @@
 			top:20px;
 			width:100%;
 		}
-
+    ._imgParent{
+      min-height: 180px;
+      max-height: 180px;
+    }
+    ._imgParent>img{
+      width: 100%;
+      height: inherit;
+    }
     /**/
     .modal-dialog{
       width: 500px;
@@ -111,7 +118,9 @@
 				$.each(JSON.parse(result.res),function(i,e){
 					html+='<div class="col-sm-6 col-md-3">'
 							+'<div class="thumbnail goodsOuter">'
+                +'<div class="_imgParent">'
 								+'<img class="_img" data-img="'+e.url+'" src="/images/loading.gif" alt="图片炸锅了"/>'
+                +'</div>'
 								+' <div class="caption">'
 								+'	<h5>'+e.title+'</h5><span>'+Common.Time(e.createtime)+'</span>'
 								+' 	<p>一些示例文本。一些示例文本。</p>'
