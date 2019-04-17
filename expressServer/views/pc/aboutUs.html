@@ -19,6 +19,16 @@
 .aboutUstextarea{
 	min-height: 200px; margin: 0px; height: 217px;
 }
+.aboutButton{
+	background: url(/images/send.png);
+	width: 60px;
+	background-size: 100%;
+	z-index: 1111;
+	border: 0;
+	height: 60px;
+	outline: none;
+	border-radius: 50%;
+}
 </style>
 
 <body>
@@ -37,18 +47,24 @@
 					</div>
 						 <div class="marginTop20">
 					<div class="aboutUs-left" >
-	 					 	<ul>
-	 					 		<li class="fs18 ">意见反馈</li>
-	 							<li class="marginTop20"><input type="text" class="form-control" placeholder="请填写你的联系方式"></li>
-	 							<li class="marginTop20">
-									<textarea class="aboutUstextarea form-control" placeholder="请写下你需要反馈的问题"></textarea>
-								</li>
-	 					 	</ul>
-							<img width="60px" style="position:absolute" src="/images/send.png" />
+						<form class="" action="index.html" method="post" onsubmit="return aboutUsSubmit()">
+							<ul>
+							<li class="fs18 ">意见反馈</li>
+							<li class="marginTop20"><input name="contact" type="text" class="form-control" placeholder="请填写你的联系方式"></li>
+							<li class="marginTop20">
+								<textarea name="contents" class="aboutUstextarea form-control" placeholder="请写下你需要反馈的问题"></textarea>
+							</li>
+							<li>
+								<input class=" btn-lg aboutButton" type="submit"  value=""/>
+							</li>
+						</ul>
+						</form>
+
+
 	 					 </div>
 	 					 <div class="aboutUs-right">
 	 						 <div class="marginTop20 fs18">
-	 						  	联系方式
+	 						  	联系管理员
 	 						 </div>
 	 						 <div class="marginTop10">
 	 						  	邮箱：291842650@qq.com
@@ -60,8 +76,7 @@
 	 			  			 	 扫一扫微信联系我们
 	 			  			 </div>
 	 			  			 <div class="marginTop20">
-	 			  			   	<img width="150" src="../images/wechat.jpg" alt="">
-										<img src="" alt="" />
+										<img width="150" src="../images/wechat.jpg" alt="">
 	 			  			 </div>
 	 					 </div>
 						</div>
@@ -75,7 +90,18 @@
 
 
 </body>
-<script>
 
+<script>
+	function aboutUsSubmit(){
+		// console.log(123);
+		if(!Common.$NullMessage(Common.$getNameVal("contact"),"请填写联系方式")){
+			return false;
+		}if(!Common.$NullMessage(Common.$getNameVal("contents"),"请填写反馈内容")){
+			return false;
+		}
+		console.log(123);
+		return false;
+	}
 </script>
+
 </html>
