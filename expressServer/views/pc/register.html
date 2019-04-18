@@ -74,7 +74,15 @@
 .box-hidden{
 	display:none;
 }
-
+.iCode{
+		background: #edaf58;
+    border: 0;
+    border-radius: 3px;
+    height: 30px;
+    color: white;
+    width: 110px;
+		outline: none;
+}
 </style>
 
 <body>
@@ -110,7 +118,7 @@
 								<div class="phonerCode_div" style="display: table-cell;">
 									<input type="text" class="inputText2 err form-control" name="phonerCodeName" id="phonerCode" placeholder="请输入验证码">
 								</div>
-								<div style="display: table-cell; padding-left: 10px;"><input type="button" value="获取验证码"></div>
+								<div style="display: table-cell; padding-left: 10px;"><input class="iCode" type="button" value="获取验证码"></div>
 								<input type="hidden" id="scretPassCode">
 							</div>
 					</div>
@@ -131,7 +139,7 @@
 <script>
 		void function(){
 			$('.login-box').css('right',$('body').width()/100+'%');
-		}()
+		}();
 
 		$(window).resize(function () {
 			$('.login-box').css('right',$('body').width()/100+'%');
@@ -168,6 +176,7 @@
 				return false;
 		}
 		var param = {phone: account,password: password};
+
 		$.post('/regist',param,function(res){
 			console.log(res);
 			if(res.code==-1){
@@ -178,6 +187,37 @@
 			// location.href = "";
 		});
 	});
+
+
+	var timeStop = 1;
+	$('.iCode').click(function(){
+		 if(timeStop){
+			 time(this);
+		 }else{
+			  Common.toast("请勿重复发送");
+		 }
+
+	});
+	// 验证码倒计时
+	function time(t){
+		timeStop = 0;
+		var _this = t;
+		var time = 10;
+		$(_this).prop('disabled','disabled');
+		$(_this).val(time);
+		var tt = 1;
+		time = time-tt; // 直接跳过第一秒的延迟执行
+		var stop = setInterval(function(){
+			if(time<1){
+					$(_this).val("重新发送");
+					clearInterval(stop);
+					timeStop=1;
+					$(_this).prop('disabled','');
+					return false;
+				}
+				$(_this).val(time--);
+		},1000);
+	}
 </script>
 </body>
 </html>
