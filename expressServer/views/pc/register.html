@@ -80,7 +80,7 @@
     border-radius: 3px;
     height: 30px;
     color: white;
-    width: 110px;
+    width: 130px;
 		outline: none;
 }
 </style>
@@ -189,35 +189,11 @@
 	});
 
 
-	var timeStop = 1;
-	$('.iCode').click(function(){
-		 if(timeStop){
-			 time(this);
-		 }else{
-			  Common.toast("请勿重复发送");
-		 }
 
+	$('.iCode').click(function(){
+			Common.sendCode(this);
 	});
-	// 验证码倒计时
-	function time(t){
-		timeStop = 0;
-		var _this = t;
-		var time = 10;
-		$(_this).prop('disabled','disabled');
-		$(_this).val(time);
-		var tt = 1;
-		time = time-tt; // 直接跳过第一秒的延迟执行
-		var stop = setInterval(function(){
-			if(time<1){
-					$(_this).val("重新发送");
-					clearInterval(stop);
-					timeStop=1;
-					$(_this).prop('disabled','');
-					return false;
-				}
-				$(_this).val(time--);
-		},1000);
-	}
+
 </script>
 </body>
 </html>

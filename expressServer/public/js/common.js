@@ -1,3 +1,4 @@
+var timeStop = 1;
 var Common = new Object({
 		Time: function(DateTime){
 			var d = new Date(DateTime)
@@ -51,6 +52,36 @@ var Common = new Object({
 			return false;
 		}
 		return 1;
+	},
+	// 发送验证码倒计时
+	sendCode: function(_this){
+
+		if(timeStop){
+			time(_this);
+		}else{
+			 Common.toast("请勿重复发送");
+		}
+
+			// 验证码倒计时
+		 function time(t){
+			 timeStop = 0;
+			 var _this = t;
+			 var time = 60;
+			 $(_this).prop('disabled','disabled');
+			 $(_this).val(time+"秒后可重新发送");
+			 var tt = 1;
+			 time = time-tt; // 直接跳过第一秒的延迟执行
+			 var stop = setInterval(function(){
+				 if(time<1){
+						 $(_this).val("重新发送");
+						 clearInterval(stop);
+						 timeStop=1;
+						 $(_this).prop('disabled','');
+						 return false;
+					 }
+					 $(_this).val(time--+"秒后可重新发送");
+			 },1000);
+		 }
 	}
 
 
