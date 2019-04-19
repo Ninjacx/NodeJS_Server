@@ -26,6 +26,11 @@ router.get('/login', function(req, res, next) {
 	}
 });
 
+router.get('/userInfo',AuthMiddleware,function(req, res, next) {
+	// 防止重复登陆
+		res.render('pc/userInfo', { hidden: ""});
+});
+
 //通用图片上传
 router.post('/upload', function(req, res, next) {
 	var form = new formidable.IncomingForm();
