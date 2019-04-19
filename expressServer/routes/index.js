@@ -205,20 +205,27 @@ router.post('/issueSubmit',AuthMiddleware,(req, res, next)=>{
 					var saveGoodsDetails = `INSERT INTO t_goods_details(goods_id,details)VALUES("${resGoods.insertId}","${GoodsDetails}")`;
 					conf.query(saveGoodsDetails,function(err,result){
 							console.log(err);
-		      		res.render('pc/href',{hidden: ''});
+		      		res.render('pc/href',{hidden: '',title: "发布商品成功",contents: "发布的产品将进行系统审核，审核成功后将在首页进行展示"});
 		      });
 							// res.json({oList:resOrder,oDetailList:resDetailOrder});
 					}).catch(function(err) {
 						res.json(err);
-					  // ...
 					  //定义错误页面
 					});
 });
 
-router.get('/aboutUs', function(req, res, next) {
+router.get('/aboutUs',function(req, res, next) {
 	res.render('pc/aboutUs',{hidden: ''});
 });
-
+// 问题反馈
+router.post('/feedBack', function(req, res, next) {
+	var {contact,contents}=req.body;
+	var advice = `INSERT INTO t_advice(phone,contents,createtime)VALUES("${contact}","${contents}",now())`;
+	conf.query(advice,function(err,result) {
+			res.render('pc/href',{hidden: '',title: "意见反馈成功",contents: "你反馈的意见我们将尽快处理，并会尽快的联系你"});
+	});
+	// return false;
+});
 router.post('/regist', function(req, res, next) {
   var {phone,password}=req.body;
   var psw = uuidv5(password, uuidv5.DNS);
