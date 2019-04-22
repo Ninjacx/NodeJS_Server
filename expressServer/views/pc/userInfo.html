@@ -28,16 +28,16 @@
  			 	<!-- 联系电话：18121118073 -->
 	 			 <div style="padding-top:70px;width:775px;display: table;box-sizing: border-box;margin: auto;">
 					<div class="colorWhite">
-						<h3><%= title%></h3>
+						<h3>个人中心</h3>
 						<div class="marginTop20">
-							 <%= contents%>
+							我发布的商品，
+							反馈的消息
 						</div>
 					</div>
 						 <div class="marginTop20">
 							<div class="aboutUs-left" >
 								<a href="/"><span class="time">10</span>秒后将自动跳转至首页</a>
 			 				</div>
-
 						</div>
 	 		 		</div>
  			</div>
@@ -48,15 +48,4 @@
 
 
 </body>
-<script>
-	void function(){
-		var Time = 9;
-		setInterval(function(){
-			$('.time').text(Time--);
-			if($('.time').text()==="0"){
-				window.location.href="/";
-			}
-		},1000)
-	}()
-</script>
 </html>
