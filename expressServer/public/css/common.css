@@ -101,5 +101,7 @@ a:hover{
 textarea{
 	resize: none;
 }
-
+.page-header{
+	border-bottom: 5px solid #ffbf09;
+}
 input[type=button]:active{opacity: 0.6;}
